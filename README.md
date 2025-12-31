@@ -140,8 +140,8 @@ The following commands can be used to quickly run tests for the 15 classic progr
 First, ensure you are in the python-ai-trainer-prep directory, then run the following:
 
 python -m venv .venv
-# Windows: .venv\Scripts\activate
-# Mac/Linux: source .venv/bin/activate
+Windows: .venv\Scripts\activate
+Mac/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 
 python -m python -m testing_practice.mini_test_framework
