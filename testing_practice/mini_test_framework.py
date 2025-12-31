@@ -1,18 +1,18 @@
-import reverse_string
-import palindrome_checker
-import max_min_in_list
-import duplicate_remover
-import fizzbuzz
-import sum_of_digits_of_number
-import merge_sorted_lists
-import second_largest_number
-import rotate_string
-import count_vowels
-import check_anagram
-import validate_balanced_parentheses
-import binary_search
-import two_sum
-import compress_string
+from classic_python_challenges import reverse_string
+from classic_python_challenges import palindrome_checker
+from classic_python_challenges import max_min_in_list
+from classic_python_challenges import duplicate_remover
+from classic_python_challenges import fizzbuzz
+from classic_python_challenges import sum_of_digits_of_number
+from classic_python_challenges import merge_sorted_lists
+from classic_python_challenges import second_largest_number
+from classic_python_challenges import rotate_string
+from classic_python_challenges import count_vowels
+from classic_python_challenges import check_anagram
+from classic_python_challenges import validate_balanced_parentheses
+from classic_python_challenges import binary_search
+from classic_python_challenges import two_sum
+from classic_python_challenges import compress_string
 
 def assert_equal(actual, expected, message) -> None:
     if actual == expected:
