@@ -147,4 +147,4 @@ Mac/Linux: source .venv/bin/activate
 
 pip install -r requirements.txt
 
-python -m python -m testing_practice.mini_test_framework
+python -m testing_practice.mini_test_framework
