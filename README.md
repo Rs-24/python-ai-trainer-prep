@@ -129,3 +129,22 @@ Unless noted otherwise in comments, all code and written analysis in this reposi
 - Python 3.10+ (any recent 3.x version should work)  
 - Standard library only for most folders  
 - `requests` library for `api_explorer`
+
+
+---
+
+**Quickstart**
+
+The following commands can be used to quickly run tests for the 15 classic programming problems.
+
+First, ensure you are in the python-ai-trainer-prep directory, then run the following:
+
+python -m venv .venv
+
+Windows: .venv\Scripts\activate
+
+Mac/Linux: source .venv/bin/activate
+
+pip install -r requirements.txt
+
+python -m testing_practice.mini_test_framework
