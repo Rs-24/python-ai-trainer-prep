@@ -1,11 +1,15 @@
-# 39
+# 100
 
 def climbing_stairs(n: int) -> int:
-    total = 1
-    if n % 2 == 0:
-        total += 1
-    for i in range((n//2) + 1):
-
+    if n <= 2:
+        return n
+    prev = 2
+    prev_prev = 1
+    total = 0
+    for i in range(3, n//2):
+        total += (prev + prev_prev + 1)
+        prev_prev = prev
+        prev = total
 
 
         # one 2: n-1
