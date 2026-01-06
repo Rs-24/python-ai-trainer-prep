@@ -1,41 +1,53 @@
-# 100
+# Time to write all of below including tests, why the solution works and time 
+# and space complexity: 2h 22 mins
+
+# I couldn't figure this one out for some reason, and I required help from
+# chatGPT to solve it
+
+# Problem: https://leetcode.com/problems/climbing-stairs/description/
+
+from typing import Callable 
 
 def climbing_stairs(n: int) -> int:
-    if n <= 2:
+    if n <= 3:
         return n
-    prev = 2
-    prev_prev = 1
+    prev = 3
+    prev_prev = 2
     total = 0
-    for i in range(3, n//2):
-        total += (prev + prev_prev + 1)
+    for i in range(4, n + 1):
+        total = prev + prev_prev
         prev_prev = prev
         prev = total
+    return total
+
+def run_tests(f: Callable[[int], int]) -> None:
+    tests = [(1, 1), (2, 2), (3, 3), (4, 5), (5, 8)]
+    for test, expected in tests:
+        actual = f(test)
+        assert actual == expected, f"{f.__name__}({test}) = {actual}, expected {expected}"
+
+def test() -> None:
+    print("Running tests...")
+    run_tests(climbing_stairs)
+    print("All tests passed!")
+
+if __name__ == "__main__":
+    test()
+
+# Why this solution works:
+#   - If n <= 3, then 3 is returned. Otherwise, the function iterates from 4 to
+#     n and the number of the ways for the previous and previous previous values
+#     of n are summed for the current value of n and the final total is returned
+#
+# Time complexity: O(n)
+# Space complexity: O(1)
+# 
+# Learning lessons (done after completing all of above in 2h 22 mins):
+#   - I noticed a typo in my explanation: the line "If n <= 3, then 3 is returned"
+#     should be changed to "If n <= 3, then n is returned"
 
 
-        # one 2: n-1
 
-        # two 2's:
-        # 4 -> 1
-        # 5 -> 2 + 1
-        # 6 -> 3 + 2 + 1
-        # 7 -> 4 + 3 + 2 + 1
-        # 8 -> 5 + 4 + 3 + 2 + 1
-
-        # three 2's:
-        # 6 -> 1
-        # 7 -> 3 + 1
-        # 8 -> 6 + 3 + 1
-        # 9 -> 10 + 6 + 3 + 1
-        # 10 -> 15 + 10 + 6 + 3 + 1
-
-        # four 2's:
-        # 8 -> 1
-        # 9 -> 4 + 1
-        # 10 -> 10 + 4 + 1
-        # 11 -> 20 + 10 + 4 + 1
-        # 12 -> 35 + 20 + 10 + 4 + 1
-        
-    
 
 
 
