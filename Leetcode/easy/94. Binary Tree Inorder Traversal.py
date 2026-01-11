@@ -82,6 +82,45 @@ if __name__ == "__main__":
 #
 # Time complexity (of inorderTraversal() only): O(n), where n = number of nodes in tree
 # Auxiliary Space complexity (of inorderTraversal() only): O(n), where n = number of nodes in tree
+#
+# Learning lessons (done after completing all of above in 4h 14 mins):
+#   - It would be useful to also know the recursive version as well. My attempt at
+#     the recursive version is below, with time O(n) and space where
+#     n = number of nodes in tree, and auxiliary space complexity of O(h), due to
+#     the recursion stack, where h is the height of the tree. Worst case auxiliary
+#     space complexity: O(n) 
+# 
+# def inorderTraversal(root: Optional[TreeNode]) -> List[int]:
+#     output: List[int] = []
+#     def dfs(node: Optional[TreeNode]) -> None:
+#         if not node:
+#             return 
+#         dfs(node.left)
+#         output.append(node.val)
+#         dfs(node.right)
+#     dfs(root)
+#     return output
+#
+#   - Additionally, I learnt that a common variation is finding the maximum
+#     depth of a binary tree. My attempt at the iterative and recursive versions
+#     are below:
+
+def max_depth(root: Optional[TreeNode]) -> int:
+    if not root:
+        return 0
+    longest = 1
+    cur = root
+    q = deque([root])
+    depth = 1
+    while q:
+        cur = q.popleft()
+        if cur.left:
+            q.append(cur.left.val)
+        if cur.right:
+            q.append(cur.right.val)
+        if cur.left or cur.right:
+            depth += 1
+    return depth
 
 
 
