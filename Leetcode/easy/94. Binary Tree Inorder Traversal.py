@@ -85,7 +85,7 @@ if __name__ == "__main__":
 #
 # Learning lessons (done after completing all of above in 4h 14 mins):
 #   - It would be useful to also know the recursive version as well. My attempt at
-#     the recursive version is below, with time O(n) and space where
+#     the recursive version is below, with time complexity O(n) where
 #     n = number of nodes in tree, and auxiliary space complexity of O(h), due to
 #     the recursion stack, where h is the height of the tree. Worst case auxiliary
 #     space complexity: O(n) 
@@ -101,29 +101,102 @@ if __name__ == "__main__":
 #     dfs(root)
 #     return output
 #
-#   - Additionally, I learnt that a common variation is finding the maximum
-#     depth of a binary tree. My attempt at the iterative and recursive versions
-#     are below:
-
-def max_depth(root: Optional[TreeNode]) -> int:
-    if not root:
-        return 0
-    longest = 1
-    cur = root
-    q = deque([root])
-    depth = 1
-    while q:
-        cur = q.popleft()
-        if cur.left:
-            q.append(cur.left.val)
-        if cur.right:
-            q.append(cur.right.val)
-        if cur.left or cur.right:
-            depth += 1
-    return depth
-
-
-
+#   - Additionally, I found out that a common variation is finding the maximum
+#     depth of a binary tree. My attempts at the iterative breadth-first-search,
+#     iterative depth-first-search and recursive depth-first-search are below:
+#
+# def max_depth_iterative_breadth_first_search(root: Optional[TreeNode]) -> int:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Auxiliary space: O(w), where w = max width of tree (worst case O(n))
+#     if not root:
+#         return 0
+#     q = deque([root])
+#     depth = 0
+#     while q:
+#         level_size = len(q)
+#         for _ in range(level_size):
+#             cur = q.popleft()
+#             if cur.left:
+#                 q.append(cur.left)
+#             if cur.right:
+#                 q.append(cur.right)
+#         depth += 1
+#     return depth
+#
+# from typing import Tuple
+# def max_depth_iterative_depth_first_search(root: Optional[TreeNode]) -> int:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Space complexity: O(h), where h is height of tree (worst case O(n))
+#     if not root:
+#         return 0
+#     stack: List[Tuple[TreeNode, int]] = [(root, 1)]
+#     max_depth = 0
+#     while stack:
+#         node, depth = stack.pop()
+#         max_depth = max(depth, max_depth)
+#         if node.left:
+#             stack.append((node.left, depth + 1))
+#         if node.right:
+#             stack.append((node.right, depth + 1))
+#     return max_depth
+#
+# def max_depth_recursive_depth_first_search(root: Optional[TreeNode]) -> int:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Auxiliary space complexity: O(h) where h is height of tree due to
+#     # recursion stack, worst case O(n)
+#     if root is None:
+#         return 0
+#     max_left = max_depth_recursive_depth_first_search(root.left)
+#     max_right = max_depth_recursive_depth_first_search(root.right)
+#     return 1 + max(max_left, max_right)
+#
+#
+#   - Additionally, I found out that another common variation is inverting
+#     a binary tree. My attempts at the recursive depth-first-search,
+#     iterative breadth-first-search and iterative depth-first-search are below:
+#
+# def invert_recursive_depth_first_search(root: Optional[TreeNode]) -> Optional[TreeNode]:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Space complexity: O(h), where h = height of tree, due to recursion stack,
+#     # worst case O(n)
+#     if root is None:
+#         return None
+#     root.left, root.right = root.right, root.left
+#     invert_recursive_depth_first_search(root.left)
+#     invert_recursive_depth_first_search(root.right)
+#     return root
+#
+# def invert_iterative_breadth_first_search(root: Optional[TreeNode]) -> Optional[TreeNode]:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Auxiliary space complexity: O(w), where w = max number of nodes at any
+#     # level (max width), worst case O(n)
+#     if root is None:
+#         return None
+#     q = deque([root])
+#     while q:
+#         node = q.popleft()
+#         node.left, node.right = node.right, node.left
+#         if node.left:
+#             q.append(node.left)
+#         if node.right:
+#             q.append(node.right)
+#     return root
+#
+# def invert_iterative_depth_first_search(root: Optional[TreeNode]) -> Optional[TreeNode]:
+#     # Time complexity: O(n), where n = number of nodes in tree
+#     # Auxiliary space complexity: O(h) if tree is more balanced, where
+#     # h = height of tree, worst case O(n) if tree is more skewed
+#     if root is None:
+#         return None
+#     stack: List[TreeNode] = [root]
+#     while stack:
+#         node = stack.pop()
+#         node.left, node.right = node.right, node.left
+#         if node.left:
+#             stack.append(node.left)
+#         if node.right:
+#             stack.append(node.right)
+#     return root
 
 
 
