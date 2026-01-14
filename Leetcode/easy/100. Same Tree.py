@@ -117,22 +117,21 @@ if __name__ == "__main__":
 #
 #   - Additionally, it may be useful to learn the iterative depth-first-search
 #     using a stack of pairs. My attempt is below:
+#
+# from typing import List, Tuple
+# def isSameTree_iter_dfs(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+#     stack: List[Tuple[Optional[TreeNode], Optional[TreeNode]]] = [(p, q)]
+#     while stack:
+#         a, b = stack.pop()
+#         if a is None and b is None:
+#             continue
+#         if a is None or b is None:
+#             return False
+#         if a.val != b.val:
+#             return False
+#         stack.append((a.left, b.left))
+#         stack.append((a.right, b.right))
+#     return True
 
 
-# continue comparing to chatGPT solution
-
-from typing import List, Tuple
-def isSameTree_iter_dfs(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-    stack: List[Tuple[Optional[TreeNode], Optional[TreeNode]]] = [(p, q)]
-    while stack:
-        a, b = stack.pop()
-        if a is None and b is None:
-            continue
-        if not a or not b:
-            return False
-        if a.val != b.val:
-            return False
-        stack.append((a.left, b.left))
-        stack.append((a.right, b.right))
-    return True
 
