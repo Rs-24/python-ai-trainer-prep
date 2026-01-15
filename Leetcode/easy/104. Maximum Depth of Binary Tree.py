@@ -49,16 +49,28 @@ if __name__ == "__main__":
 #     if not root:
 #         return 0
 #     return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
-
-
+#
+#
 # Additionally, the iterative depth-first-search method would also be useful
 # to know. My attempt is below:
-
-def maxDepth(self, root: Optional[TreeNode]) -> int:
-    longest = 0
-    stack: List[Optional[TreeNode]] = [root]
-    while stack:
-        node = stack.pop()
+#
+# def maxDepth(self, root: Optional[TreeNode]) -> int:
+#     # Time: O(n), n = number of nodes in tree
+#     # Aux space: O(h), h = height of longest explored path, worst case O(n) if
+#     # tree skewed 
+#     if not root:
+#         return 0
+#     longest = 0
+#     stack = [(root, 1)]
+#     while stack:
+#         node, depth = stack.pop()
+#         longest = max(longest, depth)
+#         if node.left:
+#             stack.append((node.left, depth + 1))
+#         if node.right:
+#             stack.append((node.right, depth + 1))
+#     return longest
+        
         
 
 
