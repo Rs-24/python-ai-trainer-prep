@@ -127,7 +127,19 @@ class Solution:
 #         q.append((l, mid-1, node, "L"))
 #         q.append((mid+1, r, node, "R"))
 #     return root
-
+#
+# Additionally, I could have improved my testing structure a bit. My rewrite
+# is below:
+#
+# Tests: 
+# edge cases: 
+#   [1]
+#   [-1, 0, 1, 2]
+#   [1, 2] 
+# Property tests:
+#   - inorder(tree) == nums
+#   - For every node, abs(height(left) - height(right)) <= 1
+#   - node_count(tree) == len(nums)
 
 
 
