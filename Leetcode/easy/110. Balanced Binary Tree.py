@@ -71,29 +71,29 @@ class Solution:
 #
 # Additionally, it would be useful to know the iterative version. My attempt is
 # below:
-
-def isBalanced(self, root: Optional[TreeNode]) -> bool:
-    # Time: O(n), n = number of nodes in tree
-    # Aux space: O(n)
-    if not root:
-        return True
-    stack = [(root, False)]
-    height = {None: 0}
-    while stack:
-        node, visited = stack.pop()
-        if not node:
-            continue
-        if not visited:
-            stack.append((node, True))
-            stack.append((node.left, False))
-            stack.append((node.right, False))
-        else:
-            lh = height[node.left]
-            rh = height[node.right]
-            if abs(lh - rh) > 1:
-                return False
-            height[node] = 1 + max(lh, rh)
-    return True
+#
+# def isBalanced(self, root: Optional[TreeNode]) -> bool:
+#     # Time: O(n), n = number of nodes in tree
+#     # Aux space: O(n)
+#     if not root:
+#         return True
+#     stack = [(root, False)]
+#     height = {None: 0}
+#     while stack:
+#         node, visited = stack.pop()
+#         if not node:
+#             continue
+#         if not visited:
+#             stack.append((node, True))
+#             stack.append((node.left, False))
+#             stack.append((node.right, False))
+#         else:
+#             lh = height[node.left]
+#             rh = height[node.right]
+#             if abs(lh - rh) > 1:
+#                 return False
+#             height[node] = 1 + max(lh, rh)
+#     return True
 
 
 
