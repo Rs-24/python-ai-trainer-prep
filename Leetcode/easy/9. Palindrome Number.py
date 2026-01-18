@@ -40,17 +40,46 @@ if __name__ == "__main__":
 #         reversed_half = reversed_half * 10 + (x % 10)
 #         x //= 10
 #     return x == reversed_half or x == reversed_half // 10
+#
+#   - Additionally, it would be useful to know the full reverse with no
+#     strings method. My attempt is below:
+#
+# def isPalindrome(self, x: int) -> bool:
+#     # Time: O(d), d = number of digits in x
+#     # Aux space: O(1)
+#     if x < 0 or (x != 0 and x % 10 == 0):
+#         return False
+#     if x == 0:
+#         return True
+#     original = x
+#     rev = 0
+#     while x > 0:
+#         rev = (rev * 10) + (x % 10)
+#         x //= 10
+#     return rev == original
+#
+#   - It would also be useful to learn the two pointer approach with a string,
+#     my attempt is below:
+#
+# def isPalindrome(self, x: int) -> bool:
+#     # Time: O(d), d = number of digits in x
+#     # Aux space: O(d)
+#     if x < 0 or (x != 0 and x % 10 == 0):
+#         return False
+#     elif x == 0:
+#         return True
+#     s = str(x)
+#     i, j = 0, len(s) - 1
+#     while i < j:
+#         if s[i] != s[j]:
+#             return False
+#         i += 1
+#         j -= 1
+#     return True
 
 
-def isPalindrome(self, x: int) -> bool:
-    original = x
-    rev = 0
 
-    while x > 0:
-        rev = (rev * 10) + (x % 10)
-        x //= 10
-    
-    return rev == original
+
 
 
 
