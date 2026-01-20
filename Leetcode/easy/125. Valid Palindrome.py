@@ -29,25 +29,36 @@ if __name__ == "__main__":
 # Total space excluding output, including input: O(n)
 
 # Learning lessons (done after completing all of above in 11 mins):
-#   - It would be useful to know 
-
-
-def isPalindrome(self, s: str) -> bool:
-    s = s.lower()
-    l, r = 0, len(s)-1
-    while l < r:
-        while not s[l].isalnum():
-            l += 1
-        while not s[r].isalnum():
-            r -= 1
-        if s[l] != s[r]:
-            return False
-        l += 1
-        r -= 1
-    return True
-
-
-         
+#   - It would be useful to know the O(1) extra space version. My attempt
+#     is below:
+#
+# def isPalindrome(self, s: str) -> bool:
+#     # Time: O(n), n = len(s)
+#     # Aux space, excluding output and input: O(1)
+#     # Total space, including output, excluding input: O(1)
+#     l, r = 0, len(s)-1
+#     while l < r:
+#         while l < r and not s[l].isalnum():
+#             l += 1
+#         while l < r and not s[r].isalnum():
+#             r -= 1
+#         if s[l].lower() != s[r].lower():
+#             return False
+#         l += 1
+#         r -= 1
+#     return True
+#
+#   - Additionally, even with my original code, I could have simplified it 
+#     more. My rewrite is below:
+#
+# def isPalindrome(self, s: str) -> bool:
+#     # Time: O(n), n = len(s)
+#     # Aux space excluding output and input: O(n)
+#     # Total space excluding output, including input: O(n)
+#     s1 = "".join(ch.lower() for ch in s if ch.isalnum())
+#     return s1 == s1[::-1]
+#
+#         
 
 
 
