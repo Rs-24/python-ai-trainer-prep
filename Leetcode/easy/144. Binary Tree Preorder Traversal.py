@@ -27,7 +27,7 @@ class Solution:
             if node.left:
                 stack.append(node.left)
         return out
-    
+
 if __name__ == "__main__":
     sol = Solution()
     assert sol.preorderTraversal(None) == []
