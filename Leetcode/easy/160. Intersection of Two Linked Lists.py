@@ -78,6 +78,8 @@ if __name__ == "__main__":
 # Total space, including output, excluding input (of def getIntersectionNode() only): O(n + m)
 
 # Learning lessons (done after completing all of above in 35 mins):
+#   - In my explanation I said tree instead of linked list. I should have written
+#     linked list instead
 #   - In retrospect my solution is a bit inefficient, and there is a way to do
 #     it in O(n + m) time, where n, m = number of nodes in listA and listB
 #     respectively. My attempt is below:
@@ -110,6 +112,17 @@ if __name__ == "__main__":
 #         a = a.next if a else headB
 #         b = b.next if b else headA
 #     return a
+#
+#   - Additionally, in retrospect I didn't need a build function and asserts,
+#     and could have saved time with comment tests. As such, my rewrite is
+#     below: 
+
+# Tests:
+# [1], [2], no node objects shared, should return None
+# [1], [1], both share same single node object, should return that node object
+# [1, 2, 3], [4, 5, 6], no node objects shared, should return None
+# [1, 2, 4], [3, 4, 5], shares linked list: [4, 5], should return head node object of [4, 5]
+
 
 
 
