@@ -22,7 +22,7 @@ if __name__ == "__main__":
     assert sol.majorityElement([-1, 0, 1, 1]) == 1
     assert sol.majorityElement([1, 1, 2, 2, 2, 3, 3]) == 2
     assert sol.majorityElement([3, 3, 3]) == 3
-    
+
 # Explanation: The function iterates through the list, and stores a dictionary
 # of each number and its frequency. The number with the highest frequency is
 # outputted
@@ -44,14 +44,16 @@ if __name__ == "__main__":
 #             candidate = num
 #         count += 1 if num == candidate else -1
 #     return candidate
-
-
-def majorityElement(self, nums: List[int]) -> int:
-    # Time: O(n log n)
-    # Aux space, excluding output and input: O(1) if in place excluding sorting overhead from .sort(). If included then O(n)
-    # Total space, including output, excluding input: O(1), excluding sorting overhead from .sort(). If included then O(n)
-    nums.sort()
-    return nums[len(nums)//2]
+#
+#   - Additionally, there is an even simpler method which uses the .sort()
+#     function. My attempt is below:
+#
+# def majorityElement(self, nums: List[int]) -> int:
+#     # Time: O(n log n)
+#     # Aux space, excluding output and input: O(1) - O(n) depending on sorting implementation, as Python's sort may use extra memory
+#     # Total space, including output, excluding input: O(1) - O(n) depending on sorting implementation, as Python's sort may use extra memory
+#     nums.sort()
+#     return nums[len(nums)//2]
 
 
 
