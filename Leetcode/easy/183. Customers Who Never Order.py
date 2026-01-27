@@ -62,6 +62,51 @@ ON c.id <> o.customerId
 # nested loop method where n, m = number of rows in Customers, Orders
 # Aux space, excluding output and input: depends on query plan,
 # e.g. O(min(n, m)) for hash method, O(1) for nested loop method
+#
+# Learning lessons (done after completing all of above in 27 mins):
+#   - I now realise my solution is wrong. My rewrite is below:
+#
+# SELECT c.name AS Customers
+# FROM Customers c
+# LEFT JOIN Orders o
+#   ON c.id = o.customerId
+# WHERE o.customerId IS NULL;
+# Time: depends on query plan, e.g. O(n) for hash method, O(n^2) for nested
+# loop method
+# Aux space, excluding output and input: depends on query plan,
+# e.g. O(min(n, m)) for hash method, O(1) for nested loop method
+#
+#   - Additionally, there is also another method using NOT IN, my attempt is
+#     below:
+#
+# SELECT name AS Customers
+# FROM Customers
+# WHERE id NOT IN (
+# SELECT customerId
+# FROM Orders
+# )
+# Time: depends on query plan, e.g. O(n + m) for hash method (O(m) is for one 
+# pass through Orders, O(n) is for hashing method), O(m + n*m) for nested loop
+# method (O(m) for one pass through Orders, O(n*m) for checking if each id is
+# in the subquery result)
+# Aux space, excluding output and input: depends on query plan, e.g. O(n + m)
+# for hash method (O(m) for subquery result, O(n) for hash table of Orders),
+# or O(m) for nested loop method, where O(m) is for the subquery result
+#
+#   - Additionally, there is also another method using NOT EXISTS, my attempt
+#     is below:
+#
+# SELECT c.name AS Customers
+# FROM Customers c
+# WHERE NOT EXISTS (
+#   SELECT 1
+#   FROM Orders o
+#   WHERE o.customerId = c.id
+# );
+# Time: depends on query plan, e.g. O(n + m) for hash method, O(n*m) for
+# nested loop method, where n, m = number of rows in Customers, Orders
+# Aux space, excluding output and input: depends on query plan, e.g.
+# O(min(n, m)) for hash method, or O(1) for nested loop method
 
 
 
