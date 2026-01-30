@@ -86,17 +86,19 @@ if __name__ == "__main__":
 #                     if length >= best_r - best_l + 1:
 #                         best_l, best_r = l, r
 #     return s[best_l:best_r+1]
-
-if __name__ == "__main__":
-    sol = Solution()
-    assert sol.longestPalindrome("a") == "a"
-    assert sol.longestPalindrome("A") == "A"
-    assert sol.longestPalindrome("1") == "1"
-    assert sol.longestPalindrome("aA") in ("a", "A")
-    assert sol.longestPalindrome("a1a") == "a1a"
-    assert sol.longestPalindrome("aAb1") in ("a", "A", "b", "1")
-    assert sol.longestPalindrome("1111") == "1111"
-    assert sol.longestPalindrome("1234") in ("1", "2", "3", "4")
+#
+#   - Additionally, my tests could have been improved. My rewrite is below:
+#
+# if __name__ == "__main__":
+#     sol = Solution()
+#     assert sol.longestPalindrome("a") == "a"
+#     assert sol.longestPalindrome("A") == "A"
+#     assert sol.longestPalindrome("1") == "1"
+#     assert sol.longestPalindrome("aA") in ("a", "A")
+#     assert sol.longestPalindrome("a1a") == "a1a"
+#     assert sol.longestPalindrome("aAb1") in ("a", "A", "b", "1")
+#     assert sol.longestPalindrome("1111") == "1111"
+#     assert sol.longestPalindrome("1234") in ("1", "2", "3", "4")
 
 
 
