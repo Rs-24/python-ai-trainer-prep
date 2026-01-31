@@ -60,34 +60,50 @@ if __name__ == "__main__":
 # Aux space, excluding output and input: O(n)
 # Total space, including output, excluding input: O(n)
 
+# Learning lessons (done after completing all of above in 28 mins):
+#   - I now realise my solution is wrong. My rewrite is below:
+#
+# def myAtoi(self, s: str) -> int:
+#     # Time: O(n), n = len(s)
+#     # Aux space, excluding output and input: O(1)
+#     # Total space, including output, excluding input: O(1)
+#     i = 0
+#     n = len(s)
+#     sign = 1
+#     while i < n and s[i] == " ":
+#         i += 1   
+#     if i < n and s[i] in "+-":
+#         if s[i] == "-":
+#             sign = -1
+#         i += 1
+#     limit = 2**31
+#     if sign == 1:
+#         limit -= 1
+#     num = 0
+#     while i < n and s[i].isdigit():
+#         digit = int(s[i])
+#         if num > limit // 10 or (num == limit // 10 and digit > limit % 10):
+#             return limit * sign
+#         num = num * 10 + digit
+#         i += 1
+#     return num * sign
 
-def myAtoi(self, s: str) -> int:
-
-    negative = False
-
-    n = 0
-
-    for i, d in enumerate(s):
-        if d in "+-":
-            if i == 0:
-                if d == "-":
-                    negative = True
-            else:
-                break
-        elif d in "123456789":
-            n = n * 10 + int(d)
-        elif d == 0:
-            if n == 0:
-                continue
-            else:
-                n *= 10
-        else:
-            break
-    
-    
 
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
