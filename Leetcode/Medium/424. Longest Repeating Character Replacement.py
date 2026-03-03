@@ -1,7 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 1h 19 mins
-
-# I required help from chatGPT to solve this one
+# and total space: 29 mins
 
 # Problem: https://leetcode.com/problems/longest-repeating-character-replacement/description/
 
@@ -10,12 +8,9 @@ class Solution:
         count = [0] * 26
         l = 0
         best = 0
-        max_count = 0
         for r, ch in enumerate(s):
-            idx = ord(ch) - ord("A")
-            count[idx] += 1
-            max_count = max(max_count, count[idx])
-            while max_count + k < r - l + 1:
+            count[ord(ch) - ord("A")] += 1
+            while max(count) + k < r - l + 1:
                 count[ord(s[l]) - ord("A")] -= 1
                 l += 1
             best = max(best, r - l + 1)
@@ -36,13 +31,6 @@ if __name__ == "__main__":
 # monitoring the most frequent character in the current window to see if the 
 # current window can produce the longest repeating character substring
 # Time: O(n), n = len(s)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(1)
-
-# Learning lessons (done after completing all of above in 1h 19 mins):
-#   - No major learning lessons
-
-
-
+# Space: O(26) = 0(1)
 
 

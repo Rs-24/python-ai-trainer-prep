@@ -5,15 +5,15 @@
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        longest = 0
-        substring = []
-        for ch in s:
-            if ch in substring:
-                longest = max(longest, len(substring))
-                substring = [ch]
-            else:
-                substring.append(ch)
-        return max(longest, len(substring))
+        seen = {}
+        left = 0
+        best = 0
+        for right, ch in enumerate(s):
+            if ch in seen and left <= seen[ch]:
+                left = seen[ch] + 1
+            seen[ch] = right
+            best = max(best, right - left + 1)
+        return best
 
 if __name__ == "__main__":
     sol = Solution()
@@ -28,69 +28,26 @@ if __name__ == "__main__":
     assert sol.lengthOfLongestSubstring("12345") == 5
     assert sol.lengthOfLongestSubstring("1 2 ") == 3
 
-# Explanation: the function stores the current substring in the substring list,
-# and iterates through each character in s and adjusts substring and longest
-# as it goes along. At the end, max(longest, len(substring)) is returned
+# Explanation: the code uses a left and right pointer with a seen dictionary
+# and a best variable to determine the longest substring, and once the loop
+# ends best is returned
 # Time: O(n), n = len(s)
-# Aux space, excluding output and input: worst case O(n)
-# Total space, including output, excluding input: O(n)
+# Space: O(k), k = number of unique characters, worst case O(n)
 
-# Learning lessons (done after completing all of above in 13 mins):
-#   - I now realise my solution is incorrect. My rewrite is below:
-#
-# def lengthOfLongestSubstring(self, s: str) -> int:
-#     # Time: O(n), n = len(s)
-#     # Aux space, excluding output and input: worst case O(min(n, k)),
-#     # k = total number of allowed characters
-#     # Total space, including output, excluding input: worst case O(min(n, k))
-#     left = 0
-#     longest = 0
-#     seen = {}
-#     for right, ch in enumerate(s):
-#         if ch in seen and left <= seen[ch]:
-#             left = seen[ch] + 1
-#         seen[ch] = right
-#         longest = max(longest, right-left+1)    
-#     return longest
-#
-#   - Additionally, there is also a method using a set, my attempt is below:
-#
-# def lengthOfLongestSubstring(self, s: str) -> int:
-#     # Time: O(n), n = len(s)
-#     # Aux space, excluding output and input: worst case O(min(n, k)), k = total
-#     # number of allowed characters
-#     # Total space, including output, excluding input: O(min(n, k))
-#     seen = set()
-#     left = 0
-#     best = 0
-#     for right, ch in enumerate(s):
-#         while ch in seen:
-#             seen.remove(s[left])
-#             left += 1
-#         seen.add(ch)
-#         best = max(best, right-left+1)
-#     return best
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# set method:
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # Time: O(n), n = len(s)
+        # Space: worst case O(n)
+        seen = set()
+        left = 0
+        best = 0
+        for right, ch in enumerate(s):
+            while ch in seen:
+                seen.remove(s[left])
+                left += 1
+            seen.add(ch)
+            best = max(best, right - left + 1)
+        return best
 
 

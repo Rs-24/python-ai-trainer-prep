@@ -1,51 +1,36 @@
 # Time to write all of below including tests, why the solution works and time 
-# and space complexity: 10 mins
+# and space complexity: 25 mins
 
 # Problem: https://leetcode.com/problems/length-of-last-word/description/
 
-from typing import Callable
-
-def last_word_length(s: str) -> int:
-    if not s:
-        return 0
-    return len(s.strip().split()[-1])
-
-def run_test(f: Callable[[str], int]) -> None:
-    tests = [("Hi there", 5), ("Good bye", 3), ("Hi", 2), ("The moon    isfar3  ", 6)]
-    for s, expected in tests:
-        actual = f(s)
-        assert actual == expected, f"{f.__name__}({s!r}) = {actual}, expected {expected}"
-
-def test() -> None:
-    print("Running tests...")
-    run_test(last_word_length)
-    print("All tests passed!")
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        i = len(s) - 1
+        length = 0
+        while i >= 0:
+            if s[i] == " ":
+                if length > 0:
+                    return length
+            else:
+                length += 1
+            i -= 1
+        return length
 
 if __name__ == "__main__":
-    test()
+    sol = Solution()
+    assert sol.lengthOfLastWord("I") == 1
+    assert sol.lengthOfLastWord(" I ") == 1
+    assert sol.lengthOfLastWord("hi") == 2
+    assert sol.lengthOfLastWord("hi ") == 2
+    assert sol.lengthOfLastWord(" hi") == 2
+    assert sol.lengthOfLastWord(" hi  I  ") == 1
 
-# Why this solution works:
-#   - If s is empty, 0 is returned. Otherwise, all leading and trailing
-#     whitespace is stripped from s, and it is split into it's separate
-#     words. Then the length of the last word is returned
-#
-# Time complexity: O(len(s))
-# Auxiliary space complexity: O(1)
-#
-# Learning lessons (done after completing all of above in 10 mins):
-#   - Auxiliary space complexity is actually O(len(s)) due to .split()
-#   - Upon further thought, I have found there is a way of doing it with O(1)
-#     auxiliary space complexity:  
-#
-# def last_word_length(s: str) -> int:
-#     length = 0
-#     i = len(s) - 1
-#     while i >= 0:
-#         if s[i] != " ":
-#             length += 1
-#         elif length > 0:
-#             return length
-#         i -= 1
-#     return length
+# Explanation: the code iterates through s from the end, and if a space is
+# reached and length is greater than 0, then length is returned. Otherwise
+# if a letter is reached, then length is incremented
+# Time: worst case O(n) if s consists of only one word and no spaces,
+# n = len(s)
+# Aux space, excluding output and input: O(1)
+# Total space, including output, excluding input: O(1)
 
     

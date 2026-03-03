@@ -1,24 +1,24 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 19 mins
+# space: 16 mins
 
 # Problem: https://leetcode.com/problems/rising-temperature/description/
 
 """
-SELECT w.id
+SELECT w.id AS id
 FROM Weather w
-JOIN Weather w_prev
-  ON w.recordDate = w_prev.recordDate + 1
-  AND w.temperature > w_prev.temperature
+JOIN Weather prev
+ON prev.recordDate = DATE_SUB(w.recordDate, INTERVAL 1 DAY)
+WHERE w.temperature > prev.temperature;
 """
 
 # Tests:
 
 # Weather
 # id - recordDate - temperature
-# 1 - 2025-01-01 - 10
-# 2 - 2025-01-02 - 25
-# 3 - 2025-01-03 - 20
-# 4 - 2025-01-04 - 30
+# 1 - 2026-01-01 - 10
+# 2 - 2026-01-02 - 20
+# 3 - 2026-01-03 - 10
+# 4 - 2026-01-04 - 20
 #
 # Expected output:
 # id
@@ -27,7 +27,10 @@ JOIN Weather w_prev
 
 # Weather
 # id - recordDate - temperature
-# 1 - 2025-01-01 - 10
+# 1 - 2026-01-01 - 40
+# 2 - 2026-01-02 - 30
+# 3 - 2026-01-03 - 20
+# 4 - 2026-01-04 - 10
 #
 # Expected output:
 # id
@@ -35,14 +38,27 @@ JOIN Weather w_prev
 
 # Weather
 # id - recordDate - temperature
-# 1 - 2025-01-01 - 20
-# 2 - 2025-01-02 - 15
-# 3 - 2025-01-03 - 10
-# 4 - 2025-01-04 - 10
+# 1 - 2026-01-01 - 10
+# 2 - 2026-01-02 - 20
+# 3 - 2026-01-03 - 30
+# 4 - 2026-01-04 - 40
 #
 # Expected output:
 # id
-# -- no rows -- 
+# 2
+# 3
+# 4
+
+# Weather
+# id - recordDate - temperature
+# 1 - 2026-01-01 - 10
+# 2 - 2026-01-02 - 10
+# 3 - 2026-01-03 - 10
+# 4 - 2026-01-04 - 10
+#
+# Expected output:
+# id
+# -- no rows --
 
 # Weather
 # id - recordDate - temperature
@@ -52,24 +68,11 @@ JOIN Weather w_prev
 # id
 # -- no rows --
 
-# Explanation: The SQL does a self-join and outputs w.id whereby w.recordDate
-# is one day greater than w_prev.recordDate, and whereby w.temperature
-# is greater than w_prev.temperature
-# Time: depends on query plan, e.g. O(n) for hash method, O(n^2) for nested 
-# loop method, where n = number of rows in Weather
-# Aux space, excluding output and input: depends on query plan, e.g. O(n) for 
-# hash method, O(1) for nested loop method
-
-# Learning lessons (done after completing all of above in 19 mins):
-#   - I now realise the line "ON w.recordDate = w_prev.recordDate + 1" is not
-#     valid syntax, it should have been: 
-#
-# ON w_prev.recordDate = DATE_SUB(w.recordDate, INTERVAL 1 DAY)
-
-
-
-
-
-
+# Explanation: the code does a self join on prev.recordDate being one day
+# before w.recordDate and outputs the id where w.temperature > prev.temperature
+# Time: depends on query plan, e.g. O(n) for hash method, O(n^2) for nested
+# loop method, n = number of rows in Weather
+# Space: depends on query plan, e.g. O(n) for hash method, O(1) for nested
+# loop method
 
 

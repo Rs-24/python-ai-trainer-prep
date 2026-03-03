@@ -1,5 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 6 mins
+# space: 18 mins
 
 # Problem: https://leetcode.com/problems/palindrome-number/description/
 
@@ -7,80 +7,69 @@ class Solution:
     def isPalindrome(self, x: int) -> bool:
         if x < 0:
             return False
-        elif x >= 0 and x <= 9:
-            return True
-        return str(x) == str(x)[::-1]
+        if x > 9 and x % 10 == 0:
+            return False 
+        rev = 0
+        while x > rev:
+            rev = rev * 10 + x % 10
+            x //= 10
+        return x == rev or x == rev // 10
 
 if __name__ == "__main__":
     sol = Solution()
-    assert sol.isPalindrome(-1) == False
     assert sol.isPalindrome(0) == True
+    assert sol.isPalindrome(-1) == False
+    assert sol.isPalindrome(1) == True
     assert sol.isPalindrome(5) == True
-    assert sol.isPalindrome(-121) == False
+    assert sol.isPalindrome(11) == True
     assert sol.isPalindrome(121) == True
+    assert sol.isPalindrome(1221) == True
+    assert sol.isPalindrome(-121) == False
+    assert sol.isPalindrome(12231) == False
+    assert sol.isPalindrome(120) == False
 
-# Explanation: x is converted to an int, and checked against its reversed
-# equivalent.
-# Time: O(n), n = number of digits in x
-# Aux space: O(n)
-
-# Learning lessons (done after completing all of above in 6 mins):
-#   - There is a typo: my explanation says: "x is converted to an int",
-#     actually it should say: "x is converted to a string"
-#   - It would be useful to know the method which doesn't involve converting
-#     to a string. My attempt is below:
-#
-# def isPalindrome(self, x: int) -> bool:
-#     # Time: O(n), n = number of digits in x
-#     # Aux space: O(1)
-#     if x < 0 or (x != 0 and x % 10 == 0):
-#         return False
-#     reversed_half = 0
-#     while x > reversed_half:
-#         reversed_half = reversed_half * 10 + (x % 10)
-#         x //= 10
-#     return x == reversed_half or x == reversed_half // 10
-#
-#   - Additionally, it would be useful to know the full reverse with no
-#     strings method. My attempt is below:
-#
-# def isPalindrome(self, x: int) -> bool:
-#     # Time: O(d), d = number of digits in x
-#     # Aux space: O(1)
-#     if x < 0 or (x != 0 and x % 10 == 0):
-#         return False
-#     if x == 0:
-#         return True
-#     original = x
-#     rev = 0
-#     while x > 0:
-#         rev = (rev * 10) + (x % 10)
-#         x //= 10
-#     return rev == original
-#
-#   - It would also be useful to learn the two pointer approach with a string,
-#     my attempt is below:
-#
-# def isPalindrome(self, x: int) -> bool:
-#     # Time: O(d), d = number of digits in x
-#     # Aux space: O(d)
-#     if x < 0 or (x != 0 and x % 10 == 0):
-#         return False
-#     elif x == 0:
-#         return True
-#     s = str(x)
-#     i, j = 0, len(s) - 1
-#     while i < j:
-#         if s[i] != s[j]:
-#             return False
-#         i += 1
-#         j -= 1
-#     return True
+# Explanation: the code builds each digit of the reversed number while
+# removing the rightmost digits of x until x <= rev, then checks if 
+# x == rev (if x had an even number of digits) or if x == rev // 10 (if x had
+# an odd number of digits)
+# Time: O(d), d = number of digits in x
+# Aux space, excluding output and input: O(1)
+# Total space, including output, excluding input: O(1)
 
 
+# Full reverse with no strings method:
+def isPalindrome(self, x: int) -> bool:
+    # Time: O(d), d = number of digits in x
+    # Aux space, excluding output and input: O(1)
+    # Total space, including output, excluding input: O(1)
+    if x < 0:
+        return False
+    if (x > 9) and (x % 10 == 0):
+        return False
+    rev = 0
+    copy = x
+    while copy > 0:
+        rev = (rev * 10) + (copy % 10)
+        copy //= 10
+    return x == rev
 
 
-
-
+# String with two pointers method:
+def isPalindrome(self, x: int) -> bool:
+    # Time: O(d), d = number of digits in x
+    # Aux space, excluding output and input: O(d)
+    # Total space, including output, excluding input: O(d)
+    if x < 0:
+        return False
+    if (x > 9) and (x % 10 == 0):
+        return False
+    s = str(x)
+    l, r = 0, len(s) - 1
+    while l < r:
+        if s[l] != s[r]:
+            return False
+        l += 1
+        r -= 1
+    return True
 
 

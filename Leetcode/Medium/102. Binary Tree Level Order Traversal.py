@@ -14,25 +14,21 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-        if not root.left and not root.right:
-            return [[root.val]]  
         out = []
         nodes = []
         q = deque([(root, 1)])
         cur_level = 1
         while q:
             node, level = q.popleft()
+            if node is None:
+                continue
             if level > cur_level:
                 out.append(nodes)
                 nodes = []
-                cur_level += 1
+                cur_level = level
             nodes.append(node.val)
-            if node.left:
-                q.append((node.left, level + 1))
-            if node.right:
-                q.append((node.right, level + 1))
+            q.append((node.left, level + 1))
+            q.append((node.right, level + 1))
         if nodes:
             out.append(nodes)
         return out
@@ -49,17 +45,6 @@ if __name__ == "__main__":
 # and it stores the nodes' values at each level in the nodes list, and appends
 # each level as a list to the out list
 # Time: O(n), n = number of nodes in tree
-# Aux space, excluding output and input: O(w), w = max number of nodes at any
-# level (max width)
-# Total space, including output, excluding input: O(n)
-
-# Learning lessons (done after completing all of above in 28 mins):
-#   - No major learning lessons
-
-
-
-
-
-
+# Space: excluding output: O(w), w = max number of nodes at any level
 
 

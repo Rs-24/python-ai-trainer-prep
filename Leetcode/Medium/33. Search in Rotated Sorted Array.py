@@ -1,7 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 48 mins
-
-# I required help from chatGPT to solve this one 
+# and total space: 13 mins
 
 # Problem: https://leetcode.com/problems/search-in-rotated-sorted-array/description/
 
@@ -14,7 +12,7 @@ class Solution:
             mid = (l + r) // 2
             if nums[mid] == target:
                 return mid
-            if nums[l] <= nums[mid]:
+            elif nums[l] <= nums[mid]:
                 if nums[l] <= target <= nums[mid]:
                     r = mid - 1
                 else:
@@ -39,16 +37,7 @@ if __name__ == "__main__":
 # Explanation: the code does a binary search, and in each iteration
 # checks if the left half is sorted and if so if target is in it, and adjusts
 # l and r accordingly
-# Time: O(log n)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(1)
-
-# Learning lessons (done after completing all of above in 48 mins):
-#   - No major learning lessons
-
-
-
-
-
+# Time: O(log n), n = len(nums)
+# Space: O(1)
 
 

@@ -13,22 +13,18 @@ class TreeNode:
 
 class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return []
         out = []
         stack = [(root, False)]
         while stack:
-            node, visited_children = stack.pop()
-            
-            if visited_children: 
-                out.append(node.val)
+            node, visited = stack.pop()
+            if node is None:
                 continue
-
-            stack.append((node, True))
-            if node.right:
+            if not visited:
+                stack.append((node, True))
                 stack.append((node.right, False))
-            if node.left:
                 stack.append((node.left, False))
+            else:
+                out.append(node.val)
         return out
 
 if __name__ == "__main__":
@@ -38,59 +34,48 @@ if __name__ == "__main__":
     assert sol.postorderTraversal(TreeNode(1, TreeNode(-1), TreeNode(0))) == [-1, 0, 1]
     
 # Explanation: The function iterates over the tree using a depth-first-search
-# approach using a stack of (node, visited_children) pairs, and once the stack 
+# approach using a stack of (node, visited) pairs, and once the stack 
 # is empty returns the variable 'out'
 # Time: O(n), n = number of nodes in tree
-# Aux space, excluding output and input: O(h), h = height of tree, worst case 
-# O(n) if tree skewed
-# Total space, including output, excluding input: O(n)
+# Space: excluding output: O(h), h = height of tree, worst case O(n)
+# if tree skewed
 
-# Learning lessons (done after completing all of above in 10 mins):
-#   - It would be useful to know the recursive depth-first-search version, my
-#     attempt is below:
-#
-# def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-#     # Time: O(n), n = number of nodes in tree
-#     # Aux space, excluding output and input: O(h), h = height of tree due to 
-#     # recursion stack, worst case O(n) if tree skewed
-#     # Total space including output, excluding input: O(n)
-#     out = []
-#     def dfs(node: Optional[TreeNode]) -> None:
-#         if not node:
-#             return
-#         dfs(node.left)
-#         dfs(node.right)
-#         out.append(node.val)
-#     dfs(root)
-#     return out
-#
-#   - Additionally, there is also an iterative method using a last_visited
-#     pointer instead of a visited flag like in my origial solution. My attempt
-#     is below:
-#
-# def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-#     # Time: O(n), n = number of nodes in tree
-#     # Aux space, excluding output and input: O(h), h = height of tree, worst
-#     # case O(n) if tree skewed
-#     # Total space, including output, excluding input: O(n)
-#     out = []
-#     stack = []
-#     last_visited = None
-#     cur = root
-#     while cur or stack:        
-#         if cur:
-#             stack.append(cur)
-#             cur = cur.left
-#         else:
-#             top = stack[-1]
-#             if top.right is not None and last_visited is not top.right:
-#                 cur = top.right
-#             else:
-#                 out.append(top.val)
-#                 last_visited = stack.pop()
-#     return out
+# Iterative method using prev pointer instead of visited flag:
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        # Time: O(n), n = number of nodes in tree
+        # Space: excluding output: O(h), h = height of tree, worst case O(n)
+        # if tree skewed
+        out = []
+        stack = []
+        prev = None
+        cur = root
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            node = stack[-1]
+            if node.right and node.right != prev:
+                cur = node.right
+            else:
+                out.append(node.val)
+                prev = node
+                stack.pop()
+        return out
 
-
-
+# Recursive depth-first-search method:
+def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    # Time: O(n), n = number of nodes in tree
+    # Space: excluding output: O(h) due to recursion stack, h = height of
+    # tree, worst case O(n) if tree skewed
+    out = []
+    def dfs(node: Optional[TreeNode]) -> None:
+        if node is None:
+            return None
+        dfs(node.left)
+        dfs(node.right)
+        out.append(node.val)
+    dfs(root)
+    return out
 
 

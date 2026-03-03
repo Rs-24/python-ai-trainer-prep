@@ -3,73 +3,43 @@
 
 # Problem: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
 
-from typing import List
+from typing import List 
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        lowest = prices[0]
         best = 0
-        for i in range(len(prices)):
-            for j in range(i+1, len(prices)):
-                profit = prices[j] - prices[i]
-                best = max(best, profit)
+        for price in prices[1:]:
+            best = max(best, price - lowest)
+            lowest = min(lowest, price)
         return best
 
 if __name__ == "__main__":
     sol = Solution()
     assert sol.maxProfit([1]) == 0
-    assert sol.maxProfit([0]) == 0
     assert sol.maxProfit([1, 2]) == 1
     assert sol.maxProfit([2, 1]) == 0
-    assert sol.maxProfit([0, 3, 2, 9]) == 9
+    assert sol.maxProfit([5, 4, 3, 2, 1]) == 0
+    assert sol.maxProfit([2, 2, 1, 1, 1]) == 0
+    assert sol.maxProfit([0, 6, 2, 8]) == 8
+    assert sol.maxProfit([1, 4, 2, 3, 1]) == 3
     
-# Explanation: The list is iterated over twice to find the max profit
-# Time: O(n^2), n = len(prices)
-# Aux space excluding output and input: O(1)
-# Total space including output, excluding input: O(1)
+# Explanation: the code uses two variables: lowest and best, and iterates
+# through the list while continuously updating best and lowest using the
+# current price
+# Time: O(n), n = len(prices)
+# Space: O(1)
 
-# Learning lessons (done after completing all of above in 17 mins):
-#   - It would have been better to do the O(n) version, my attempt is below:
-#
-# def maxProfit(self, prices: List[int]) -> int:
-#     # Time: O(n), n = len(prices)
-#     # Aux space excluding output, excluding input: O(1)
-#     # Total space including output, excluding input: O(1)
-#     lowest = prices[0]
-#     best = 0
-#     for i in range(1, len(prices)):
-#         if prices[i] < lowest:
-#             lowest = prices[i]
-#         else:
-#             best = max(best, prices[i] - lowest)
-#     return best
-#
-#   - Additionally, it would be useful to know the Kadane's algorithm version,
-#     my attempt is below:
-#
-# def maxProfit(self, prices: List[int]) -> int:
-#     # Time: O(n), n = len(prices)
-#     # Aux space excluding output and input: O(1)
-#     # Total space excluding output, including input: O(1)
-#     current, best = 0, 0
-#     for i in range(1, len(prices)):
-#         diff = prices[i] - prices[i-1]
-#         current = max(0, current + diff)
-#         best = max(best, current)
-#     return best
-
-
-
-    
-
-
-
-
-
-
-        
-        
-
-            
-            
+# Kadane's algorithm method:
+def maxProfit(self, prices: List[int]) -> int:
+    # Time: O(n), n = len(prices)
+    # Space: O(1)
+    current = 0
+    best = 0
+    for i in range(1, len(prices)):
+        diff = prices[i] - prices[i - 1]
+        current = max(0, current + diff)
+        best = max(best, current)
+    return best
 
 

@@ -1,17 +1,14 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 1h 4 mins
-
-# I required help from chatGPT to solve this one
+# and total space: 32 mins
 
 # Problem: https://leetcode.com/problems/daily-temperatures/description/
 
-from typing import List 
-
+from typing import List
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        stack = []
         out = [0] * len(temperatures)
-        for i, t, in enumerate(temperatures):
+        stack = []
+        for i, t in enumerate(temperatures):
             while stack and temperatures[stack[-1]] < t:
                 j = stack.pop()
                 out[j] = i - j
@@ -30,8 +27,6 @@ if __name__ == "__main__":
 # whenever the current temperature is higher than the temperature represented
 # by the last index in the stack
 # Time: O(n), n = len(temperatures)
-# Aux space, excluding output and input: O(n)
-# Total space, including output, excluding input: O(n)
+# Space: excluding output: O(k), k = max size of stack, worst case O(n)
 
-# Learning lessons (done after completing all of above in 1h 4 mins):
-#   - No major learning lessons
+

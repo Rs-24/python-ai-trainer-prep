@@ -1,7 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 2h 11 mins
-
-# I required help from chatGPT to solve this one 
+# and total space: 11 mins
 
 # Problem: https://leetcode.com/problems/house-robber/description/
 
@@ -10,11 +8,12 @@ from collections import defaultdict
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        prev_prev = prev = 0
+        prev = prev_prev = 0
+        current = 0
         for money in nums:
-            cur = max(prev, prev_prev + money)
+            current = max(prev, prev_prev + money)
             prev_prev = prev
-            prev = cur
+            prev = current
         return prev
 
 if __name__ == "__main__":
@@ -26,19 +25,8 @@ if __name__ == "__main__":
 
 # Explanation: the code iterates through the list while storing the previous
 # and previous-previous values and setting the current value to
-# cur = max(prev, prev_prev + money)
+# current = max(prev, prev_prev + money)
 # Time: O(n), n = len(nums)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(1)
-
-# Learning lessons (done after completing all of above in 2h 11 mins):
-#   - No major learning lessons
-
-
-
-
-            
-
-
+# Space: O(1)
 
 

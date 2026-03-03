@@ -1,9 +1,9 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 35 mins
+# space: 20 mins
 
 # Problem: https://leetcode.com/problems/intersection-of-two-linked-lists/description/
 
-from typing import Optional, Tuple, List
+from typing import Optional, List, Tuple
 
 class ListNode:
     def __init__(self, x):
@@ -12,121 +12,71 @@ class ListNode:
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        a, b = [], []
+        a, b = headA, headB
+        while a is not b:
+            a = a.next if a else headB
+            b = b.next if b else headA
+        return a
 
-        node = headA
-        while node:
-            a.append(node)
-            node = node.next
-
-        node = headB
-        while node:
-            b.append(node)
-            node = node.next
-
-        for node in a:
-            if node in b:
-                return node
-        return None
-
-def build(listA: List[int], listB: List[int], intersectVal: int, skipA: int, skipB: int) -> Tuple[ListNode, ListNode]:
-    headA = ListNode(listA[0])
-    headB = ListNode(listB[0])
-
-    link_node = None
-
-    nodeA = headA.next
-    nodeB = headB.next
-
+def build(listA: List[int], listB: List[int], skipA: int, skipB: int) -> Tuple[Optional[ListNode], Optional[ListNode], Optional[ListNode]]:
+    dummyA = ListNode(0)
+    tail = dummyA
+    intersection_node = None
     for i, num in enumerate(listA):
-        if i == 0:
-            continue
-        if num == intersectVal:
-            break
-        nodeA = ListNode(num)
-        nodeA = nodeA.next
-
-    for i, num in enumerate(listB):
-        if i == 0:
-            continue
-        nodeB = ListNode(num)
-        if num == intersectVal:
-            link_node = nodeB
-        nodeB = nodeB.next
-
-    if intersectVal > 0:
-        nodeA = link_node
-
-    return headA, headB
+        tail.next = ListNode(num)
+        if i == skipA:
+            intersection_node = tail.next
+        tail = tail.next
+    dummyB = ListNode(0)
+    tail = dummyB
+    for i in range(skipB):
+        tail.next = ListNode(listB[i])
+        tail = tail.next
+    tail.next = intersection_node
+    return dummyA.next, dummyB.next, intersection_node
 
 if __name__ == "__main__":
     sol = Solution()
-    
-    a, b = build([1], [2], 0, 0, 0)
-    assert sol.getIntersectionNode(a, b) ==  None
 
-    a, b = build([1, 2, 3], [2, 3], 2, 1, 0)
-    assert sol.getIntersectionNode(a, b) == a.next
-    
-    a, b = build([1, 2, 3], [4, 5, 6], 0, 0, 0)
-    assert sol.getIntersectionNode(a, b) == None
+    a, b, expected = build([1], [1], 0, 0)
+    assert sol.getIntersectionNode(a, b) is expected
 
-# Explanation: Each tree is converted to a list and the first element in each
-# list that are equal is returned
-# Time: O(n * m), n, m = number of nodes in each tree respectively
-# Aux space, excluding output and input (of def getIntersectionNode() only): O(n + m)
-# Total space, including output, excluding input (of def getIntersectionNode() only): O(n + m)
+    a, b, expected = build([2], [1, 2], 0, 1)
+    assert sol.getIntersectionNode(a, b) is expected
 
-# Learning lessons (done after completing all of above in 35 mins):
-#   - In my explanation I said tree instead of linked list. I should have written
-#     linked list instead
-#   - In retrospect my solution is a bit inefficient, and there is a way to do
-#     it in O(n + m) time, where n, m = number of nodes in listA and listB
-#     respectively. My attempt is below:
-#
-# def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-#     # Time: O(n + m), n, m = number of nodes in listA and listB respectively
-#     # Aux space, excluding output and input: O(n), n = number of nodes in listA
-#     # Total space, including output, excluding input: O(n)
-#     seen = set()
-#     nodeA = headA
-#     while nodeA:
-#         seen.add(nodeA)
-#         nodeA = nodeA.next
-#     nodeB = headB
-#     while nodeB:
-#         if nodeB in seen:
-#             return nodeB
-#         nodeB = nodeB.next
-#     return None
-#
-#   - Additionally, I now realise there is a version with no extra space. As
-#     such, my attempt is below:
-#
-# def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-#     # Time: O(n + m), n, m = number of nodes in listA and listB respectively
-#     # Aux space, excluding output and input: O(1)
-#     # Total space, including output, excluding input: O(1)
-#     a, b = headA, headB
-#     while a is not b:
-#         a = a.next if a else headB
-#         b = b.next if b else headA
-#     return a
-#
-#   - Additionally, in retrospect I didn't need a build function and asserts,
-#     and could have saved time with comment tests. As such, my rewrite is
-#     below: 
+    a, b, expected = build([1, 4, 7, 10], [2, 7, 10], 2, 1)
+    assert sol.getIntersectionNode(a, b) is expected
 
-# Tests:
-# [1], [2], no node objects shared, should return None
-# [1], [1], both share same single node object, should return that node object
-# [1, 2, 3], [4, 5, 6], no node objects shared, should return None
-# [1, 2, 4], [3, 4, 5], shares linked list: [4, 5], should return head node object of [4, 5]
+    a, b, expected = build([1, 4, 7, 10], [1, 4, 7, 10], 0, 0)
+    assert sol.getIntersectionNode(a, b) is expected
 
+    a, b, expected = build([1, 4, 7, 10], [3, 4, 10], 3, 2)
+    assert sol.getIntersectionNode(a, b) is expected
 
+    a, b, expected = build([1, 4, 7, 10], [2, 3, 5], 4, 3)
+    assert sol.getIntersectionNode(a, b) is expected
 
+# Explanation: the code iterates uses pointers a and b to iterate through both
+# lists, and if it reaches the end of one list, moves to the beginnning of the
+# next list. If the two lists intersect, the two pointers will meet at the
+# intersecting node and that node is returned. If they don't intersect, then
+# the two lists don't intersect, then both pointers will eventually reach None
+# at the same time, and None is returned
+# Time: O(m + n), m = number of nodes in listA, n = number of nodes in listB
+# Space: excluding output: O(1)
 
-
-
+# set method:
+def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+    # Time: O(m + n), m = number of nodes in listA, n = number of nodes in listB
+    # Space: excluding output: O(m)
+    seen = set()
+    while headA:
+        seen.add(headA)
+        headA = headA.next    
+    while headB:
+        if headB in seen:
+            return headB
+        headB = headB.next
+    return None
 
 

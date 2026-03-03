@@ -1,5 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 18 mins
+# space: 15 mins
 
 # Problem: https://leetcode.com/problems/minimum-depth-of-binary-tree/description/
 
@@ -14,49 +14,30 @@ class TreeNode:
 
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        if not root:
+        if root is None:
             return 0
-        q = deque([root, 1])
+        q = deque([(root, 1)])
         while q:
-            length = len(q)
-            for _ in range(length):
-                node, depth = q.popleft()
-                if not node.left and not node.right:
-                    return depth
-                if node.left:
-                    q.append((node.left, depth + 1))
-                if node.right:
-                    q.append((node.right, depth + 1))
+            node, depth = q.popleft()
+            if node.left is None and node.right is None:
+                return depth
+            if node.left:
+                q.append((node.left, depth + 1))
+            if node.right:
+                q.append((node.right, depth + 1))
 
-# Tests:
-# [] -> 0
-# [1] -> 1
-# [-1, 0, 1] -> 2
+if __name__ == "__main__":
+    sol = Solution()
+    assert sol.minDepth(None) == 0
+    assert sol.minDepth(TreeNode(1)) == 1
+    assert sol.minDepth(TreeNode(1, TreeNode(2))) == 2
+    assert sol.minDepth(TreeNode(1, TreeNode(2), TreeNode(3))) == 2
+    assert sol.minDepth(TreeNode(-1, TreeNode(0, None, TreeNode(1)), TreeNode(2))) == 2
 
-# Explanation: A breadth-first-search approach is used with a queue, where
-# every node at each level is checked if they have any children and if not, 
-# that depth is returned
-# Time: O(n), n = number of nodes in tree
-# Aux space: O(w), w = max number of nodes at any level reached before 
-# finding a node with no children. Worst case O(n)
- 
-# Learning lessons (done after completing all of above in 18 mins):
-#   - The line "q = deque([root, 1])" should actually be "q = deque([(root, 1)])"
-#     for the program to work
-#   - Also the code block:
-#         length = len(q)
-#         for _ in range(length):
-#     is not necessary, and can be removed
-
-
-
-
-
-
-
-
-
-
-
+# Explanation: the code uses a breadth-first-search method using a queue of 
+# node, depth pairs, and returns the depth of the first node with no children
+# Time: O(k), k = number of nodes processed before first leaf node reached,
+# worst case O(n)
+# Space: worst case O(w) extra due to queue, w = max width of tree
 
 

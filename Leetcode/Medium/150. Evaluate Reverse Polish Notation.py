@@ -10,18 +10,17 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
         for ch in tokens:
-            if ch in "+-/*":
+            if ch in "+-*/":
                 b = stack.pop()
                 a = stack.pop()
-                match ch:
-                    case "+":
-                        stack.append(a+b)
-                    case "-":
-                        stack.append(a-b)
-                    case "*":
-                        stack.append(a*b)
-                    case "/":
-                        stack.append(floor(a/b))
+                if ch == "+":
+                    stack.append(a + b)
+                elif ch == "-":
+                    stack.append(a - b)
+                elif ch == "*":
+                    stack.append(a * b)
+                elif ch == "/":
+                    stack.append(int(a / b))
             else:
                 stack.append(int(ch))
         return stack[-1]
@@ -39,20 +38,6 @@ if __name__ == "__main__":
 # Explanation: the code uses a stack to process each subexpression, and
 # returns the last item left in the stack
 # Time: O(n), n = len(tokens)
-# Aux space, excluding output and input: O(k), k = number of numbers in tokens
-# Total space, including output, excluding input: O(k)
-
-# Learning lessons (done after completing all of above in 30 mins):
-#   - I now realise the line 'stack.append(floor(a/b))' doesn't actually
-#     truncate towards zero, instead it should be changed to:
-# stack.append(int(a/b))
-
-
-
-
-
-
-
-
+# Space: worst case O(n)
 
 

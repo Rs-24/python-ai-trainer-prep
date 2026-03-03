@@ -7,13 +7,16 @@ from typing import List
 
 class Solution:
     def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
         best = 0
-        for i in range(len(height)):
-            for j in range(len(height)):
-                if i == j:
-                    continue
-                area = abs(j - i) * min(height[j], height[i])
-                best = max(best, area)
+        current = 0
+        while l < r:
+            current = (r - l) * min(height[l], height[r])
+            best = max(best, current)
+            if height[l] > height[r]:
+                r -= 1
+            else:
+                l += 1
         return best
 
 if __name__ == "__main__":
@@ -23,29 +26,11 @@ if __name__ == "__main__":
     assert sol.maxArea([1, 2, 3]) == 2
     assert sol.maxArea([3, 2, 4]) == 6
     
-# Explanation: The program finds the area for every combination of two lines
-# and outputs the largest area found      
-# Time: O(n^2), n = len(height)
-# Aux space, excluding output and input: O(1)
-# Total space, including output and input: O(1)
-
-# Learning lessons (done after completing all of above in 11 mins):
-#   - I now realise there is an O(n) time solution, my attempt is below:
-#
-# def maxArea(self, height: List[int]) -> int:
-#     # Time: O(n), n = len(height)
-#     # Aux space, excluding output and input: O(1)
-#     # Total space, including output, excluding input: O(1)
-#     l, r = 0, len(height) - 1
-#     best = 0
-#     while l < r:
-#         area = (r - l) * min(height[l], height[r])
-#         best = max(best,area)
-#         if height[l] < height[r]:
-#             l += 1
-#         else:
-#             r -= 1
-#     return best
-
+# Explanation: The program uses two pointers at either end, and gradually
+# brings both pointers to the middle while checking if the current area is
+# greater than best. When decrementing, it decrements the pointer with the
+# lower height
+# Time: O(n), n = len(height)
+# Space: O(1)
 
 

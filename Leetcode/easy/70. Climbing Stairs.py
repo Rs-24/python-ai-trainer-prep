@@ -1,53 +1,34 @@
 # Time to write all of below including tests, why the solution works and time 
-# and space complexity: 2h 22 mins
-
-# I couldn't figure this one out for some reason, and I required help from
-# chatGPT to solve it
+# and space complexity: 10 mins
 
 # Problem: https://leetcode.com/problems/climbing-stairs/description/
 
-from typing import Callable 
-
-def climbing_stairs(n: int) -> int:
-    if n <= 3:
-        return n
-    prev = 3
-    prev_prev = 2
-    total = 0
-    for i in range(4, n + 1):
-        total = prev + prev_prev
-        prev_prev = prev
-        prev = total
-    return total
-
-def run_tests(f: Callable[[int], int]) -> None:
-    tests = [(1, 1), (2, 2), (3, 3), (4, 5), (5, 8)]
-    for test, expected in tests:
-        actual = f(test)
-        assert actual == expected, f"{f.__name__}({test}) = {actual}, expected {expected}"
-
-def test() -> None:
-    print("Running tests...")
-    run_tests(climbing_stairs)
-    print("All tests passed!")
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        prev_prev = 1
+        prev = 2
+        for i in range(3, n + 1):
+            cur = prev + prev_prev
+            prev_prev = prev
+            prev = cur
+        return prev
 
 if __name__ == "__main__":
-    test()
+    sol = Solution()
+    assert sol.climbStairs(1) == 1
+    assert sol.climbStairs(2) == 2
+    assert sol.climbStairs(3) == 3
+    assert sol.climbStairs(4) == 5
+    assert sol.climbStairs(5) == 8
 
-# Why this solution works:
-#   - If n <= 3, then 3 is returned. Otherwise, the function iterates from 4 to
-#     n and the number of the ways for the previous and previous previous values
-#     of n are summed for the current value of n and the final total is returned
-#
-# Time complexity: O(n)
-# Space complexity: O(1)
-# 
-# Learning lessons (done after completing all of above in 2h 22 mins):
-#   - I noticed a typo in my explanation: the line "If n <= 3, then 3 is returned"
-#     should be changed to "If n <= 3, then n is returned"
-
-
-
-
+# Explanation: the code uses the logic that num_ways(n) = num_ways(n - 1) +
+# num_ways(n - 2), and iterates up to n while storing the previous and 
+# previous previous values which represent the number of ways for n - 1 and 
+# n - 2 steps respectively
+# Time: O(n)
+# Aux space, excluding output and input: O(1)
+# Total space, including output, excluding input: O(1)
 
 

@@ -3,42 +3,33 @@
 
 # Problem: https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
 
-from typing import Callable
-
-def first_occurrence(needle: str, haystack: str) -> int:
-    length = len(needle)
-    for i in range(0, len(haystack) - len(needle)):
-        if haystack[i:i+length] == needle:
-            return i
-    return -1
-
-def run_tests(f: Callable[[str, str], int]) -> None:
-    tests = [("needle", "haystack", -1), ("hi", "hiya", 0), ("ship", "worship", 3), ("wheelbarrow", "bar", 5)]
-    for needle, haystack, expected in tests:
-        actual = f(needle, haystack)
-        assert actual == expected, f"{f.__name__}({needle}, {haystack}) = {actual}, expected {expected}"
-
-def test():
-    print("Running tests...")
-    run_tests(first_occurrence)
-    print("All tests passed!")
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        h = len(haystack)
+        n = len(needle)
+        if h < n:
+            return -1
+        elif h == n:
+            return 0 if needle == haystack else -1
+        for i in range(h - n + 1):
+            if haystack[i:i+n] == needle:
+                return i
+        return -1
 
 if __name__ == "__main__":
-    test()
+    sol = Solution()
+    assert sol.strStr("b", "a") == -1
+    assert sol.strStr("a", "a") == 0
+    assert sol.strStr("b", "ab") == -1
+    assert sol.strStr("bb", "a") == -1
+    assert sol.strStr("abab", "a") == 0
+    assert sol.strStr("byehibye","hi") == 3
+    assert sol.strStr("worship", "ship") == 3
+    assert sol.strStr("worshi", "ship") == -1
 
-# Why this solution works:
-#   - haystack is iterated over and each substring is compared to needle and
-#     the index at which the first instance of needle starts is returned. If
-#     the loop ends and the code after it runs, then needle is not in haystack
-#     and -1 is returned
-#
-# Time complexity: O(len(needle) * len(haystack))
-# Auxiliary space complexity: O(len(needle))
-# 
-# Learning lessons (done after completing all of above in 15 mins):
-#   - The line 'for i in range(0, len(haystack) - len(needle)):' should actually
-#     be 'for i in range(0, len(haystack) - len(needle) + 1):'
-
-
+# Explanation: the code iterates through the relevant range in haystack, and
+# compares each relevant substring to needle
+# Time: O((h - n + 1) * n), h = len(haystack), n = len(needle)
+# Space: O(n)        
 
 

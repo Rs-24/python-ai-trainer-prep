@@ -1,9 +1,9 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 11 mins
+# space: 14 mins
 
 # Problem: https://leetcode.com/problems/linked-list-cycle/description/
 
-from typing import Optional
+from typing import Optional, List
 
 class ListNode:
     def __init__(self, x):
@@ -12,77 +12,51 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        seen = set()
-        while head:
-            if head in seen:
+        if not head:
+            return False
+        slow = fast = head
+        while slow.next and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
                 return True
-            seen.add(head)
-            head = head.next
         return False
 
-# Tests:
-# [] -> False
-# [1] -> False
-# [1, [back to 1]] -> True
-# [0, -1, 2, [back to -1]] -> True
+def build(nums: List[int], pos: int) -> Optional[ListNode]:
+    if not nums:
+        return None
+    dummy = ListNode(0)
+    cycle_node = None
+    tail = dummy
+    for i in range(len(nums)):
+        tail.next = ListNode(nums[i])
+        tail = tail.next
+        if i == pos:
+            cycle_node = tail
+    if cycle_node is not None:
+        tail.next = cycle_node
+    return dummy.next
 
-# Explanation: the function iterates through the linked list and checks if
-# each node is in the seen set
-# Time: O(n), n = number of nodes in the linked list
-# Aux space, excluding output and input: O(n)
-# Total space, including output, excluding input: O(n)
+if __name__ == "__main__":
+    sol = Solution()
 
-# Learning lessons (done after completing all of above in 11 mins):
-#   - I now realise there is also an O(1) space version. My rewrite is below:
-#
-# def hasCycle(self, head: Optional[ListNode]) -> bool:
-#     # Time: O(n), n = number of nodes in linked list
-#     # Aux space excluding output and input: O(1)
-#     # Total space including output, excluding input: O(1)
-#     slow = fast = head
-#     while fast and fast.next:
-#         slow = slow.next
-#         fast = fast.next.next
-#         if slow is fast:
-#             return True
-#     return False
-#
-#   - Additionally, I could have improved my tests a bit. My rewrite is below:
-#
-# from typing import List
-# def build_list(nums: List[int], pos: int) -> Optional[ListNode]:
-#     dummy = ListNode(0)
-#     tail = dummy
-#     cycle_node = None
-#     for i, num in enumerate(nums):
-#         tail.next = ListNode(num)
-#         tail = tail.next
-#         if i == pos:
-#             cycle_node = tail
-#     if pos != -1 and nums:
-#         tail.next = cycle_node
-#     return dummy.next
-#
-# if __name__ == "__main__":
-#     sol = Solution()
-#     assert sol.hasCycle(build_list([], -1)) == False
-#     assert sol.hasCycle(build_list([1], -1)) == False
-#     assert sol.hasCycle(build_list([1], 0)) == True
-#     assert sol.hasCycle(build_list([-1, 0, 1], 1)) == True
-#     assert sol.hasCycle(build_list([-1, 0, 1, 2 ,3], -1)) == False
+    assert sol.hasCycle(None) == False
 
+    head = build([1, 2, 3, 4], -1)
+    assert sol.hasCycle(head) == False
 
+    head = build([1, 2, 3, 4], 1)
+    assert sol.hasCycle(head) == True
 
+    head = build([-1, 0, 1], 0)
+    assert sol.hasCycle(head) == True
 
+    head = build([1, 2, 3, 4], 3)
+    assert sol.hasCycle(head) == True
 
-
-
-
-
-
-
-
-
-
+# Explanation: the code uses two pointers: fast and slow and if they are ever
+# equal, returns True
+# Time: O(n), n = number of nodes in list
+# Space: O(1)
 
 

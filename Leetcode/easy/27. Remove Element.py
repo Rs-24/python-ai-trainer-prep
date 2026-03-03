@@ -1,69 +1,54 @@
 # Time to write all of below including tests, why the solution works and time 
-# and space complexity: 57 mins
+# and space complexity: 18 mins
 
 # Problem: https://leetcode.com/problems/remove-element/description/ 
 
-from typing import List, Callable
+from typing import List
 
-def remove_element(nums: List[int], val: int) -> int:
-    if not nums:
-        return 0
-    left = 0
-    for right in range(len(nums)):
-        if nums[right] != val:
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-    nums[left:] = [0] * (len(nums) - left)
-    return left
-
-def run_tests(f: Callable[[List[int], int], int]) -> None:
-    tests = [([1, 2, 3, 3, 4], 3, [1, 2, 4, 0, 0], 3), ([], 2, [], 0), ([3, 3, 3], 3, [0, 0, 0], 0), ([1, 2, 3], 3, [1, 2, 0], 2)]
-    for nums, val, expected_nums_after, expected_k in tests:
-        before = nums.copy()
-        actual_k = f(before, val)
-        assert actual_k == expected_k, f"{f.__name__}({nums}, {val}) = {actual_k}, expected {expected_k}"
-        assert before == expected_nums_after, f"{f.__name__}({nums}, {val}) changed {nums} to {before}, it should have been changed to {expected_nums_after}"
-
-def test() -> None:
-    print("Running tests...")
-    run_tests(remove_element)
-    print("All tests passed!")
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        if not nums:
+            return 0
+        l = 0
+        for r in range(len(nums)):
+            if nums[r] != val:
+                nums[l] = nums[r]
+                l += 1
+        return l
 
 if __name__ == "__main__":
-    test()
+    sol = Solution()
 
-# Why this solution works:
-#   - if nums is empty, 0 is returned. Otherwise, a two pointer approach is
-#     used while iterating over the list, and after the loop ends each instance
-#     of val at the end is replaced with a zero
-#
-# Time complexity: O(len(nums))
-# Auxiliary space complexity: len(nums)
+    l1 = []
+    assert sol.removeElement(l1, 1) == 0
+    assert l1[:0] == []
 
-# Learning lessons (done after completing all of above in 57 mins):
-#   - The line 'nums[left:] = [0] * (len(nums) - left)' probably isn't
-#     necessary, as the Leetcode problem page states it doesn't matter 
-#     what is in the list after the first k elements where k is the number
-#     of elements not equal to val.
-#   - Currently with the line 'nums[left:] = [0] * (len(nums) - left)' I
-#     stated auxiliary space complexity to be O(len(nums)), more specifically
-#     it is O(len(nums) - k)
-#   - Also, as mentioned I shouldn't have put in the 0's replacing each
-#     instance of val so the tests should be altered by either replacing each 
-#     instance of 0 with val, or just not check beyond the first k elements. In
-#     this instance it would be better to not check beyond the first k elements
-#     as the Leetcode problem page states anyway that it doesn't matter what is
-#     in the list after the first k elements anyway. As such, run_tests() can
-#     be changed into:
-# 
-# def run_tests(f: Callable[[List[int], int], int]) -> None:
-#     tests = [([1, 2, 3, 3, 4], 3, [1, 2, 4], 3), ([], 2, [], 0), ([3, 3, 3], 3, [], 0), ([1, 2, 3], 3, [1, 2], 2)]
-#     for nums, val, expected_first_k_elements, expected_k in tests:
-#         before = nums.copy()
-#         actual_k = f(before, val)
-#         assert actual_k == expected_k, f"{f.__name__}({nums}, {val}) = {actual_k}, expected {expected_k}"
-#         assert expected_first_k_elements == before[:actual_k], f"{f.__name__}({nums}, {val}) changes {nums} to {before}, but the first k elements should be {expected_first_k_elements}"
+    l1 = [1]
+    assert sol.removeElement(l1, 1) == 0
+    assert l1[:0] == []
 
+    l1 = [1]
+    assert sol.removeElement(l1, 2) == 1
+    assert l1[:1] == [1]
 
+    l1 = [0, 1, 2, 3]
+    assert sol.removeElement(l1, 0) == 3
+    assert sorted(l1[:3]) == sorted([1, 2, 3])
+    
+    l1 = [0, 1, 2, 3]
+    assert sol.removeElement(l1, 1) == 3
+    assert sorted(l1[:3]) == sorted([0, 2, 3])
+    
+    l1 = [1, 2, 2, 3, 3, 4, 5]
+    assert sol.removeElement(l1, 2) == 5
+    assert sorted(l1[:5]) == sorted([1, 3, 3, 4, 5])
+    
+# Explanation: the code iterates through the list with a left and right
+# pointer, and if the current value is not equal to val, then the value
+# at the left pointer is set to the value at the right pointer, and the
+# left pointer is incremented
+# Time: O(n), n = len(nums)
+# Aux space, excluding output and input: O(1)
+# Total space, including output, excluding input: O(1)
 
 

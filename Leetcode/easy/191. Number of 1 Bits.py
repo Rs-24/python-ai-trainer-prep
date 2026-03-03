@@ -1,27 +1,15 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 23 mins
+# and total space: 7 mins
 
 # Problem: https://leetcode.com/problems/number-of-1-bits/description/
 
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        
-        power = 0
-
-        while 2**power < n:
-            power += 1
-        
-        count = 0
-
-        total = n
-
-        while total > 0:
-            if 2**power <= total:
-                total -= 2**power
-                count += 1
-            power -= 1
-        
-        return count
+        total = 0
+        while n > 0:
+            total += (n & 1)
+            n >>= 1
+        return total
 
 if __name__ == "__main__":
     sol = Solution()
@@ -29,49 +17,21 @@ if __name__ == "__main__":
     assert sol.hammingWeight(2) == 1
     assert sol.hammingWeight(3) == 2
     assert sol.hammingWeight(4) == 1
-    assert sol.hammingWeight(2**10 - 1) == 10
-    assert sol.hammingWeight(2**31 - 1) == 31
+    assert sol.hammingWeight(11) == 3
 
-# Explanation: the max power of two is calculated, and then the function
-# iterates until total <= 0, and increments count accordingly which represents
-# the number of ones in the binary number. Then count is returned once the loop
-# ends
-# Time: O(n)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(1)
+# Explanation: the code repeatedly shifts the bits in n right by one and
+# before doing so each time, adds the least significant bit in n to total
+# Time: O(b), b = number of bits in n
+# Space: O(1)
 
-# Learning lessons (done after completing all of above in 23 mins):
-#   - I now realise my solution is wrong, my rewrite is below:
-#
-# def hammingWeight(self, n: int) -> int:
-#     # Time: O(log n)
-#     # Aux space, excluding output and input: O(1) 
-#     # Total space, including output, excluding input: O(1) 
-#     count = 0
-#     while n:
-#         count += (n & 1)
-#         n >>= 1
-#     return count
-#
-#   - Additionally, there is also a Brian Kernighan method, my attempt is below:
-#
-# def hammingWeight(self, n: int) -> int:
-#     # Time: O(m), m = number of set bits in n
-#     # Aux space, excluding output and input: O(1)
-#     # Total space, including output, excluding input: O(1)
-#     count = 0
-#     while n:
-#         n &= (n-1)
-#         count += 1
-#     return count
-
-
-
-
-
-
-
-
-
+# Brian Kernighan method:
+def hammingWeight(self, n: int) -> int:
+    # Time: O(k), k = number of 1 bits in n
+    # Space: O(1)
+    total = 0
+    while n > 0:
+        n &= (n - 1)
+        total += 1
+    return total
 
 

@@ -1,26 +1,30 @@
 # Time to write all of below including tests, explanation and time and aux
-# and total space: 1h 32 mins
-
-# I required help from chatGPT to solve this one 
+# and total space: 32 mins
 
 # Problem: https://leetcode.com/problems/insert-interval/description/
 
 from typing import List
 
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:                
-        out = []
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if len(intervals) == 0:
+            return [newInterval]
         i = 0
         n = len(intervals)
+        out = []
         while i < n and intervals[i][1] < newInterval[0]:
             out.append(intervals[i])
             i += 1
-        start, end = newInterval
-        while i < n and intervals[i][0] <= end:
-            start = min(start, intervals[i][0])
-            end = max(end, intervals[i][1])
+        if i == n:
+            out.append(newInterval)
+            return out
+        a = min(intervals[i][0], newInterval[0])
+        b = max(intervals[i][1], newInterval[1])
+        while i < n and intervals[i][0] <= b:
+            a = min(a, intervals[i][0])
+            b = max(b, intervals[i][1])
             i += 1
-        out.append([start, end])
+        out.append([a, b])
         while i < n:
             out.append(intervals[i])
             i += 1
@@ -39,28 +43,7 @@ if __name__ == "__main__":
 # then merges newInterval with existing intervals or appends it unchanged, and
 # then appends all intervals after newInterval
 # Time: O(n), n = len(intervals)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(n)
+# Space: excluding output: O(1)
  
-# Learning lessons (done after completing all of above in 1h 32 mins):
-#   - No major learning lessons
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

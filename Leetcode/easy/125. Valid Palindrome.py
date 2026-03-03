@@ -1,72 +1,35 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 11 mins
+# space: 15 mins
 
 # Problem: https://leetcode.com/problems/valid-palindrome/description/
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s_list = []
-        for ch in s:
-            if ch.isalnum():
-                s_list.append(ch.lower())
-        return s_list == s_list[::-1]
-
+        l, r = 0, len(s) - 1
+        while l <= r:
+            while l <= r and not s[l].lower().isalnum():
+                l += 1
+            while l <= r and not s[r].lower().isalnum():
+                r -= 1
+            if l <= r and s[l].lower() != s[r].lower():
+                return False
+            l += 1
+            r -= 1
+        return True
+    
 if __name__ == "__main__":
     sol = Solution()
-    assert sol.isPalindrome(",") == True
     assert sol.isPalindrome(" ") == True
     assert sol.isPalindrome("1") == True
-    assert sol.isPalindrome("2") == True
-    assert sol.isPalindrome("r a cec ar") == True
-    assert sol.isPalindrome("r, acecar") == True
-    assert sol.isPalindrome("race a car") == False
+    assert sol.isPalindrome("a") == True
+    assert sol.isPalindrome("racecar") == True
+    assert sol.isPalindrome("R,a ce car") == True
+    assert sol.isPalindrome("racecars") == False
 
-# Explanation: each alphanumeric character is converted to lowercase and 
-# added to a list. At the end the list is checked if it equals its reversed
-# counterpart
+# Explanation: the code uses two pointers at either end that move towards each
+# other, and skips characters that aren't letters or numbers, and checks if the
+# characters at the two pointers are equal
 # Time: O(n), n = len(s)
-# Aux space excluding output and input: O(n)
-# Total space excluding output, including input: O(n)
-
-# Learning lessons (done after completing all of above in 11 mins):
-#   - It would be useful to know the O(1) extra space version. My attempt
-#     is below:
-#
-# def isPalindrome(self, s: str) -> bool:
-#     # Time: O(n), n = len(s)
-#     # Aux space, excluding output and input: O(1)
-#     # Total space, including output, excluding input: O(1)
-#     l, r = 0, len(s)-1
-#     while l < r:
-#         while l < r and not s[l].isalnum():
-#             l += 1
-#         while l < r and not s[r].isalnum():
-#             r -= 1
-#         if s[l].lower() != s[r].lower():
-#             return False
-#         l += 1
-#         r -= 1
-#     return True
-#
-#   - Additionally, even with my original code, I could have simplified it 
-#     more. My rewrite is below:
-#
-# def isPalindrome(self, s: str) -> bool:
-#     # Time: O(n), n = len(s)
-#     # Aux space excluding output and input: O(n)
-#     # Total space excluding output, including input: O(n)
-#     s1 = "".join(ch.lower() for ch in s if ch.isalnum())
-#     return s1 == s1[::-1]
-#
-#         
-
-
-
-
-
-
-
-
-
+# Space: O(1)
 
 

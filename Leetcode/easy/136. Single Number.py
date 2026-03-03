@@ -1,7 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 32 mins
-
-# I needed help from chatGPT to solve this one
+# space: 9 mins
 
 # Problem: https://leetcode.com/problems/single-number/description/
 
@@ -9,34 +7,21 @@ from typing import List
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        x = 0
+        out = 0
         for num in nums:
-            x ^= num
-        return x
+            out ^= num
+        return out
 
 if __name__ == "__main__":
     sol = Solution()
     assert sol.singleNumber([1]) == 1
-    assert sol.singleNumber([2, 2]) == 0
-    assert sol.singleNumber([-1, 0, 3, -1, 0]) == 3
+    assert sol.singleNumber([1, 2, 1]) == 2
+    assert sol.singleNumber([-1, 0, -1, 0, 9]) == 9
 
-# Explanation: XOR is used with each digit
+# Explanation: the code uses the XOR operator, where 0 ^ a = a, and a ^ a = 0,
+# and performs this operation on every number in nums. At the end, the final
+# value of out is the number that only occurs once
 # Time: O(n), n = len(nums)
-# Aux space excluding output and input: O(1)
-# Total space including output, excluding input: O(1)
-
-# Learning lessons (done after completing all of above in 32 mins):
-#   - The "assert sol.singleNumber([2, 2]) == 0" test isn't really valid for
-#     Leetcode constraints. I could have replaced it with e.g.
-#     "assert sol.singleNumber([2, 2, 1]) == 1"
-#   - Additionally, I could have improved my explanation a bit. My rewrite is
-#     below:
-
-# Explanation: XOR is used with each element in nums, whereby 0 ^ num = num and 
-# num ^ num = 0
-
-
-
-
+# Space: excluding output: O(1)
 
 

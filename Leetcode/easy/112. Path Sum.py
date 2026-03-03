@@ -1,5 +1,5 @@
 # Time to write all of below including tests, explanation and time and aux 
-# space: 15 mins
+# space: 16 mins
 
 # Problem: https://leetcode.com/problems/path-sum/description/
 
@@ -14,51 +14,35 @@ class TreeNode:
 
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        if not root:
+        if root is None:
             return False
-        q = deque([(root, root.val)])
-        while q:
-            node, sum = q.popleft()
-            if sum == targetSum and not node.left and not node.right:
+        stack = [(root, root.val)]
+        while stack:
+            node, total = stack.pop()
+            if total == targetSum and not node.left and not node.right:
                 return True
             if node.left:
-                q.append((node.left, node.val + node.left.val))
+                stack.append((node.left, total + node.left.val))
             if node.right:
-                q.append((node.right, node.val + node.right.val))
+                stack.append((node.right, total + node.right.val))
         return False
 
-# Tests: 
-# [], 0 -> False
-# [], 1 -> False
-# [1], 1 -> True
-# [-1, 0, 1], 0 -> True
-# [1, 2, 3], -1 -> False
+if __name__ == "__main__":
+    sol = Solution()
+    assert sol.hasPathSum(None, 1) == False
+    assert sol.hasPathSum(TreeNode(1), 1) == True
+    assert sol.hasPathSum(TreeNode(1), 2) == False
+    assert sol.hasPathSum(TreeNode(1, TreeNode(2)), 3) == True
+    assert sol.hasPathSum(TreeNode(-1, TreeNode(0), TreeNode(1)), 0) == True
+    assert sol.hasPathSum(TreeNode(-1, TreeNode(-2), TreeNode(-3, TreeNode(1))), -1) == False
 
-# Explanation: A breadth-first-search method is used a queue containing each
-# node and its corresponding sum. Each node is processed until a lead node is
-# found with its sum equal to targetSum and True is returned. If no such node
-# is found, then False is returned
-# Time: O(n), n = number of nodes in tree
-# Aux space: O(w), w = width of max level reached without a lead node summing
-# to target, worst case O(n)
-
-# Learning lessons (done after completing all of above in 15 mins):
-#   - There is a bug, the lines:
-#
-#         if node.left:
-#             q.append((node.left, node.val + node.left.val))
-#         if node.right:
-#             q.append((node.right, node.val + node.right.val))
-#
-#     should be:
-#
-#         if node.left:
-#             q.append((node.left, sum + node.left.val))
-#         if node.right:
-#             q.append((node.right, sum + node.right.val))
-#
-#   - Also, the variable name 'sum' is also the name of an in-built python
-#     function sum(). As such, it would be better to rename it to something
-#     else like e.g. 'path_sum'
+# Explanation: the code uses a depth-first-search approach using a stack of 
+# node, total pairs, and if a leaf node is reached with total equal to 
+# targetSum, True is returned. If the loop ends without having returned
+# anything, then False is returned
+# Time: O(k), k = number of nodes processed, worst case O(n),
+# n = number of nodes in tree
+# Space: O(h), h = max height reached, worst case O(n) if tree
+# skewed
 
 

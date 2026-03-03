@@ -1,9 +1,9 @@
 # Time to write all of below including tests, why the solution works and time 
-# and space complexity: 28 mins
+# and space complexity: 15 mins
 
 # Problem: https://leetcode.com/problems/same-tree/description/
 
-from typing import Optional, Callable
+from typing import Optional
 from collections import deque
 
 class TreeNode:
@@ -16,122 +16,108 @@ class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if not p and not q:
             return True
-        elif (p and not q) or (q and not p):
+        if not p or not q:
             return False
+        p_q = deque([p])
+        q_q = deque([q])
+        while p_q and q_q:
+            p1 = p_q.popleft()
+            q1 = q_q.popleft()
 
-        q1 = deque([p])
-        q2 = deque([q])
-        while q1 and q2:
-            cur1 = q1.popleft()
-            cur2 = q2.popleft()
-            if cur1.val != cur2.val:
+            if not p1 and not q1:
+                continue
+            if not p1 or not q1:
                 return False
-            if cur1.left:
-                q1.append(cur1.left)
-            if cur1.right:
-                q1.append(cur1.right)
-            if cur2.left:
-                q2.append(cur2.left)
-            if cur2.right:
-                q2.append(cur2.right)
-        if len(q1) != len(q2):
-            return False
-        else:
-            return True 
 
-def run_tests(f: Callable[[Optional[TreeNode], Optional[TreeNode]], bool]) -> None:
-    tests = [(TreeNode(-1,TreeNode(0),TreeNode(1)), TreeNode(-1,TreeNode(0),TreeNode(1)), True), (None, None, True), (TreeNode(1), TreeNode(1, TreeNode(2)), False)]
-    for p, q, expected in tests:
-        actual = f(p, q)
-        assert actual == expected, f"{f.__name__}({p}, {q}) = {actual}, expected {expected}"
+            if p1.val != q1.val:
+                return False
+            
+            p_q.append(p1.left)
+            p_q.append(p1.right)
 
-def test() -> None:
-    print("Running tests...")
-    run_tests(Solution.isSameTree)
-    print("All tests passed!")
+            q_q.append(q1.left)
+            q_q.append(q1.right)
+        
+        return len(p_q) == len(q_q)
 
 if __name__ == "__main__":
-    test()
+    sol = Solution()
+    assert sol.isSameTree(None, None) == True
+    assert sol.isSameTree(TreeNode(1), None) == False
+    assert sol.isSameTree(None, TreeNode(1)) == False
+    assert sol.isSameTree(TreeNode(1), TreeNode(1)) == True
+    assert sol.isSameTree(TreeNode(1), TreeNode(1, None, TreeNode(2))) == False
+    assert sol.isSameTree(TreeNode(-1, TreeNode(0), TreeNode(1)), TreeNode(-1, TreeNode(0), TreeNode(1))) == True
+    assert sol.isSameTree(TreeNode(-1, TreeNode(0), TreeNode(1)), TreeNode(-1, TreeNode(-1), TreeNode(1))) == False
 
-# Why this solution works:
-#   - isSamTree() compares p and q, if they are both None then True is returned,
-#     if only 1 is None, then False is returned. Then a breadth-first-search method
-#     is used with two queues, and if at any point the popped value from each queue
-#     is different to each other, then False is returned. Once either or both queues
-#     become empty, then their lengths are compared. If they are the same, then True
-#     is returned, otherwise False is returned   
-#
-# Time complexity: O(n + m), where n is the number of nodes in the tree with root p,
-#                  and m is the number of nodes in the tree with root q
-# Auxiliary space complexity: O(w1 + w2), where the w1 and w2 are the max number of 
-#                             nodes in each tree at any level (max width). Worst
-#                             case O(n + m)
-#
-#
-# Learning lessons (done after completing all of above in 28 mins):
-#   - There is a bug in that e.g. [1, None, 2], [1, 2, None] would return True
-#     because the function doesn't compare whether both nodes in the current
-#     iteration have left/right children. As such, I should add the checks:
-#     if (cur1.left is None) != (cur2.left is None) : return False
-#     if (cur1.right is None) != (cur2.right is None) : return False
-#   - run_tests(Solution.isSameTree) wouldn't work, I would need to instead do e.g.
-#     sol = Solution()
-#     run_tests(sol.isSameTree)
-#   - Additionally, it would be a good idea to know the recursive solution. My
-#     attempt at it is below:
-#
-# def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-#     # Time: O(k), k = number of nodes compared, worst case O(n) if identical,
-#     # n = number of nodes in p and q
-#     # Aux space: O(h), where h = height of longest explored path due to
-#     # recursion stack, worst case O(n) if both are skewed and identical
-#     if not p and not q:
-#         return True
-#     if not p or not q:
-#         return False
-#     return (p.val == q.val and 
-#             self.isSameTree(p.left, q.left) and 
-#             self.isSameTree(p.right, q.right))
-#
-#   - Additionally, the method in my solution was an iterative
-#     breadth-first-search, however it could be improved by using a queue of
-#     pairs. As such, my rewrite is below:
-#
-# def isSameTree_iter_bfs(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-#     # Time: O(k), k = number of nodes compared, worst case O(n) if trees
-#     # identical - in this case n = number of nodes in either tree  
-#     # Aux space: O(w), w = width of widest level reached without mismatch, 
-#     # worst case O(n) if trees identical
-#     dq = deque([(p, q)])
-#     while dq:
-#         a, b = dq.popleft()
-#         if a is None and b is None:
-#             continue
-#         if a is None or b is None:
-#             return False
-#         if a.val != b.val:
-#             return False
-#         dq.append((a.left, b.left))
-#         dq.append((a.right, b.right))
-#     return True
-#
-#   - Additionally, it may be useful to learn the iterative depth-first-search
-#     using a stack of pairs. My attempt is below:
-#
-# from typing import List, Tuple
-# def isSameTree_iter_dfs(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-#     stack: List[Tuple[Optional[TreeNode], Optional[TreeNode]]] = [(p, q)]
-#     while stack:
-#         a, b = stack.pop()
-#         if a is None and b is None:
-#             continue
-#         if a is None or b is None:
-#             return False
-#         if a.val != b.val:
-#             return False
-#         stack.append((a.left, b.left))
-#         stack.append((a.right, b.right))
-#     return True
+# Explanation: the code does a breadth-first-search of both trees using two
+# queues to determine if they are structurally the same while also checking if
+# the nodes have the same value
+# Time: worst case O(n) if trees identical, n = number of nodes in either tree
+# Aux space, excluding output and input: worst case O(w) if trees identical, 
+# w = max number of nodes at any level in either tree (max width)
+# Aux space, including output, excluding input: worst case O(w)
 
+# Same solution but with queue of pairs
+def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    # Time: worst case O(n) if trees identical, n = number of nodes in either
+    # tree
+    # Aux space, excluding output and input: worst case O(w) if trees
+    # identical, w = max number of nodes at any level in either tree (max width)
+    # Total space, including output, excluding input: worst case O(w)
+    if not p and not q:
+        return True
+    if not p or not q:
+        return False
+    pq = deque([(p, q)])
+    while pq:
+        a, b = pq.popleft()
+        if not a and not b:
+            continue
+        if not a or not b:
+            return False
+        if a.val != b.val:
+            return False
+        pq.append((a.left, b.left))
+        pq.append((a.right, b.right))
+    return True
+
+# Recursive solution:
+def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    # Time: worst case O(n) if trees identical, n = number of nodes in either
+    # tree
+    # Aux space, excluding output and input: O(h) due to recursion stack,
+    # h = max depth reached until mismatch or end reached if trees identical,
+    # worst case O(n) if trees identical and skewed
+    # Total space, including output, excluding input: O(h), worst case O(n)    
+    if not p and not q:
+        return True
+    if not p or not q:
+        return False
+    if p.val != q.val:
+        return False
+    return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+# Iterative depth-first-search solution using stack of pairs:
+def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    # Time: worst case O(n) if trees identical, n = number of nodes in either
+    # tree
+    # Aux space, excluding output and input: worst case O(h) if trees
+    # identical, h = height of either tree, also worst case O(n) if trees
+    # skewed 
+    # Total space, including output, excluding input: worst case O(h), also
+    # worst case O(n)
+    stack = [(p, q)]
+    while stack:
+        a, b = stack.pop()
+        if not a and not b:
+            continue
+        if not a or not b:
+            return False
+        if a.val != b.val:
+            return False
+        stack.append((a.left, b.left))
+        stack.append((a.right, b.right))
+    return True
 
 
