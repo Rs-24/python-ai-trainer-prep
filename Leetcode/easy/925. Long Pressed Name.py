@@ -1,0 +1,21 @@
+# Time to write all of below including tests, explanation and time and aux
+# and total space: 4 mins
+
+# Problem: https://leetcode.com/problems/long-pressed-name/description/
+
+class Solution:
+    def isLongPressedName(self, name: str, typed: str) -> bool:
+        # Time: O(n), n = len(typed)
+        # Space: O(1)
+        i = j = 0
+        while j < len(typed):
+            if i < len(name) and name[i] == typed[j]:
+                i += 1
+                j += 1
+            elif j > 0 and typed[j - 1] == typed[j]:
+                j += 1
+            else:
+                return False
+        return i == len(name)
+
+

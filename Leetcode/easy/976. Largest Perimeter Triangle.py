@@ -1,0 +1,19 @@
+# Time to write all of below including tests, explanation and time and aux
+# and total space: 5 mins
+
+# Problem: https://leetcode.com/problems/largest-perimeter-triangle/description/
+
+from typing import List
+
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        # Time: O(n log n), n = len(nums)
+        # Space: O(n)
+        nums.sort(reverse=True)
+        for i in range(len(nums) - 2):
+            a, b, c = nums[i], nums[i + 1], nums[i + 2]
+            if a < b + c:
+                return a + b + c
+        return 0
+
+
