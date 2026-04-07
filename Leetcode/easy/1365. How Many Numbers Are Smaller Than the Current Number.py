@@ -1,0 +1,16 @@
+# Time to write all of below including tests, explanation and time and aux
+# and total space: 4 mins
+
+# Problem: https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/description/
+
+from typing import List
+
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        d = {}
+        for i, num in enumerate(sorted(nums)):
+            if num not in d:
+                d[num] = i
+        return [d[num] for num in nums]
+
+
