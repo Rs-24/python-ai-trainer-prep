@@ -1,30 +1,24 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 8 mins
 
-# Problem: https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/description/
 
 class Solution:
     def countPrimeSetBits(self, left: int, right: int) -> int:
-        # Time: O((right - left + 1) * log right)
+        # Time: O(n * sqrt(log right)), n = right - left
         # Space: O(1)
-        def set_bits(x: int) -> int:
-            total = 0
+        def set_bits(x: int):
+            count = 0
             while x > 0:
                 x &= (x - 1)
-                total += 1
-            return total
-        def is_prime(num: int) -> bool:
-            if num < 2:
+                count += 1
+            return count
+        def is_prime(x: int) -> bool:
+            if x <= 1:
                 return False
-            i = 2
-            while i * i <= num:
-                if num % i == 0:
+            d = 2
+            while d * d <= x:
+                if x % d == 0:
                     return False
-                i += 1
+                d += 1
             return True
-        count = 0
-        for i in range(left, right + 1):
-            count += 1 if is_prime(set_bits(i)) else 0
-        return count
+        return sum(is_prime(set_bits(x)) for x in range(left, right + 1))
 
 

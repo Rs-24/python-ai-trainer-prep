@@ -1,48 +1,21 @@
-# Time to write all of below including tests, why the solution works and time 
-# and space complexity: 9 mins
 
-# Problem: https://leetcode.com/problems/sqrtx/description/
 
 class Solution:
     def mySqrt(self, x: int) -> int:
-        i = 0
-        while i**2 < x:
-            i += 1
-        return i if i**2 == x else i - 1
-
-if __name__ == "__main__":
-    sol = Solution()
-    assert sol.mySqrt(0) == 0
-    assert sol.mySqrt(1) == 1
-    assert sol.mySqrt(2) == 1
-    assert sol.mySqrt(3) == 1
-    assert sol.mySqrt(4) == 2
-    assert sol.mySqrt(5) == 2
-    assert sol.mySqrt(36) == 6
-    assert sol.mySqrt(48) == 6
-
-# Explanation: the code iterates from i = 0 to x, and stops the loop once
-# i to the power of 2 is greater than or equal to x, then i is returned if
-# i**2 == x, otherwise i - 1 is returned
-# Time: O(x)
-# Aux space, excluding output and input: O(1)
-# Total space, including output, excluding input: O(1)
-
-# Binary search method:
-def mySqrt(self, x: int) -> int:
-    # Time: O(log x)
-    # Aux space, excluding output and input: O(1)
-    # Total space, including output, excluding input: O(1) 
-    l, r = 0, x
-    while l <= r:
-        mid = (l + r) // 2
-        square = mid**2
-        if square == x:
-            return mid
-        elif square < x:
-            l = mid + 1
-        else:
-            r = mid - 1
+        # Time: O(log x)
+        # Space: O(1)
+        if x < 2:
+            return x
+        l, r = 0, x // 2
+        while l <= r:
+            mid = (l + r) // 2
+            sq = mid * mid
+            if sq == x:
+                return mid
+            elif sq < x:
+                l = mid + 1
+            else:
+                r = mid - 1
         return r
 
 

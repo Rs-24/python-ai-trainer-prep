@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/first-bad-version/description/
 
 def isBadVersion(version: int) -> bool:
     pass

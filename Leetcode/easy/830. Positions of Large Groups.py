@@ -1,23 +1,21 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/positions-of-large-groups/description/
-
-from typing import List
 
 class Solution:
-    def largeGroupPositions(self, s: str) -> List[List[int]]:
+    def largeGroupPositions(self, s: str) -> list[list[int]]:
         # Time: O(n), n = len(s)
-        # Space, excluding output: O(1)
+        # Space: O(n)
         out = []
-        l = 0
-        for r, ch in enumerate(s):
-            if s[l] != ch:
-                if r - l >= 3:
-                    out.append([l, r - 1])
-                l = r
-        if len(s) - l >= 3:
-            out.append([l, len(s) - 1])
+        start = end = 0
+        for i in range(1, len(s)):
+            if i > 0 and s[i] != s[i - 1]:
+                end = i - 1
+                if end - start + 1 >= 3:
+                    out.append([start, end])
+                start = end = i
+            else:
+                end += 1
+        if end - start + 1 >= 3:
+            out.append([start, end])
         return out
 
 

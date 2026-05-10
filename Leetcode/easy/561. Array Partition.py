@@ -1,15 +1,13 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/array-partition/description/
-
-from typing import List
 
 class Solution:
-    def arrayPairSum(self, nums: List[int]) -> int:
+    def arrayPairSum(self, nums: list[int]) -> int:
         # Time: O(n log n), n = len(nums)
-        # Space: worst case O(n)
+        # Space: O(1)
         nums.sort()
-        return sum(nums[::2])
+        total = 0
+        for i in range(0, len(nums), 2):
+            total += nums[i]
+        return total
 
 

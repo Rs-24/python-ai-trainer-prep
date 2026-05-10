@@ -1,19 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 6 mins
 
-# Problem: https://leetcode.com/problems/reverse-vowels-of-a-string/description/
 
 class Solution:
     def reverseVowels(self, s: str) -> str:
         # Time: O(n), n = len(s)
-        # Space, excluding output: O(n)
-        vowels = set("aeiouAEIOU")
+        # Space: O(n)
         s = list(s)
+        v = set("aeiouAEIOU")
         l, r = 0, len(s) - 1
         while l < r:
-            while l < r and s[l] not in vowels:
+            while l < r and s[l] not in v:
                 l += 1
-            while l < r and s[r] not in vowels:
+            while l < r and s[r] not in v:
                 r -= 1
             s[l], s[r] = s[r], s[l]
             l += 1

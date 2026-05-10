@@ -1,18 +1,25 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/goat-latin/description/
 
 class Solution:
     def toGoatLatin(self, sentence: str) -> str:
         # Time: O(n), n = len(sentence)
         # Space: O(n)
-        sentence = sentence.split()
-        for i, word in enumerate(sentence):
-            if word[0].lower() in "aeiou":
-                sentence[i] = word + "ma" + ("a" * (i + 1))
-            else:
-                sentence[i] = word[1:] + word[0] + "ma" + ("a" * (i + 1))       
-        return " ".join(sentence)
+        s = sentence.split()
+        out = []
+        for i, word in enumerate(s):
+            cur = []
+            v = word[0] in "aeiouAEIOU"
+            for j, ch in enumerate(word):
+                if j == 0 and not v:
+                    continue
+                cur.append(ch)
+            if not v:
+                cur.append(word[0])
+            cur.append("m")
+            cur.append("a")
+            for _ in range(i + 1):
+                cur.append("a")
+            out.append("".join(cur))
+        return " ".join(out)
 
 

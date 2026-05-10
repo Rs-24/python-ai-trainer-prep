@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 5 mins
 
-# Problem: https://leetcode.com/problems/degree-of-an-array/description/
-
-from typing import List 
 
 class Solution:
-    def findShortestSubArray(self, nums: List[int]) -> int:
+    def findShortestSubArray(self, nums: list[int]) -> int:
         # Time: O(n), n = len(nums)
         # Space: O(n)
         first = {}

@@ -1,32 +1,26 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/lemonade-change/description/
-
-from typing import List
 
 class Solution:
-    def lemonadeChange(self, bills: List[int]) -> bool:
+    def lemonadeChange(self, bills: list[int]) -> bool:
         # Time: O(n), n = len(bills)
         # Space: O(1)
-        five = 0
-        ten = 0
+        f = t = 0
         for b in bills:
             if b == 5:
-                five += 1
+                f += 1
             elif b == 10:
-                if five == 0:
+                if f == 0:
                     return False
-                five -= 1
-                ten += 1
+                t += 1
+                f -= 1
             else:
-                if ten > 0 and five > 0:
-                    five -= 1
-                    ten -= 1
-                elif five >= 3:
-                    five -= 3
+                if f >= 1 and t >= 1:
+                    f -= 1
+                    t -= 1
+                elif f >= 3:
+                    f -= 3
                 else:
                     return False
         return True
-                        
+
 

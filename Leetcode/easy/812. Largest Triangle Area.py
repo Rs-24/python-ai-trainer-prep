@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 6 mins
 
-# Problem: https://leetcode.com/problems/largest-triangle-area/description/
-
-from typing import List 
 
 class Solution:
-    def largestTriangleArea(self, points: List[List[int]]) -> float:
+    def largestTriangleArea(self, points: list[list[int]]) -> float:
         # Time: O(n^3), n = len(points)
         # Space: O(1)
         best = 0.0

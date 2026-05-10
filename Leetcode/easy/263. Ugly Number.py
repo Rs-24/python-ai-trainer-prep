@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/ugly-number/description/
 
 class Solution:
     def isUgly(self, n: int) -> bool:

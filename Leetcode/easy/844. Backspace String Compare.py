@@ -1,51 +1,24 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 9 mins
 
-# Problem: https://leetcode.com/problems/backspace-string-compare/description/
 
-from typing import List
-
-class Solution:
-    def backspaceCompare(self, s: str, t: str) -> bool:
-        # Time: O(m + n), m = len(s), n = len(t)
-        # Space: O(m + n)
-        def build(string: str) -> List[str]:
-            out = []
-            for ch in string:
-                if ch == "#":
-                    if out != []:
-                        out.pop()
-                else:
-                    out.append(ch)
-            return out
-        return build(s) == build(t)
-
-# O(1) space version:
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
         # Time: O(m + n), m = len(s), n = len(t)
         # Space: O(1)
+        def nxt(string: str, idx: int) -> int:
+            skip = 0
+            while idx >= 0:
+                if string[idx] == "#":
+                    skip += 1
+                elif skip > 0:
+                    skip -= 1
+                else:
+                    break
+                idx -= 1
+            return idx
         i, j = len(s) - 1, len(t) - 1
-        skip_s = skip_t = 0
         while i >= 0 or j >= 0:
-            while i >= 0:
-                if s[i] == "#":
-                    skip_s += 1
-                    i -= 1
-                elif skip_s > 0:
-                    skip_s -= 1
-                    i -= 1
-                else:
-                    break
-            while j >= 0:
-                if s[j] == "#":
-                    skip_t += 1
-                    j -= 1
-                elif skip_t > 0:
-                    skip_t -= 1
-                    j -= 1
-                else:
-                    break
+            i = nxt(s, i)
+            j = nxt(t, j)
             if i >= 0 and j >= 0:
                 if s[i] != t[j]:
                     return False

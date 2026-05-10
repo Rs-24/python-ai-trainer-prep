@@ -1,24 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 8 mins
 
-# Problem: https://leetcode.com/problems/relative-ranks/description/
-
-from typing import List
 
 class Solution:
-    def findRelativeRanks(self, score: List[int]) -> List[str]:
-        # Time: O(n log n), n = len(scores)
-        # Space, excluding output: O(n)
+    def findRelativeRanks(self, score: list[int]) -> list[str]:
+        # Time: O(n log n), n = len(score)
+        # Space: O(n)
         out = [""] * len(score)
-        ranked = sorted([(s, i) for i, s in enumerate(score)], reverse=True)
+        ranks = sorted([(s, i) for i, s in enumerate(score)], reverse=True)
         place = 1
-        for s, i in ranked:
+        for s, i in ranks:
             if place == 1:
                 out[i] = "Gold Medal"
             elif place == 2:
                 out[i] = "Silver Medal"
-            elif place[i] == 3:
-                out[i] = "Third Medal"
+            elif place == 3:
+                out[i] = "Bronze Medal"
             else:
                 out[i] = str(place)
             place += 1

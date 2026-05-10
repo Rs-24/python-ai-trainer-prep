@@ -1,23 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 5 mins
 
-# Problem: https://leetcode.com/problems/unique-morse-code-words/description/
-
-from typing import List
 
 class Solution:
-    def uniqueMorseRepresentations(self, words: List[str]) -> int:
-        # Time: O(n), n = total number of characters in words
-        # Space: O(n)
+    def uniqueMorseRepresentations(self, words: list[str]) -> int:
+        # Time: O(m * n), m = len(words), n = number of characters per word
+        # in words
+        # Space: O(m + n)
         morse = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---",
                  "-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-",
                  "..-","...-",".--","-..-","-.--","--.."]
-        morse_words = []
+        s = set()
         for word in words:
-            temp = []
-            for ch in word:
-                temp.append(morse[ord(ch) - ord("a")])
-            morse_words.append("".join(temp))
-        return len(set(morse_words))
+            s.add("".join(morse[ord(ch) - ord("a")] for ch in word))
+        return len(s)
 
 

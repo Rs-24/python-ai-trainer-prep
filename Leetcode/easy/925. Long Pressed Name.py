@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/long-pressed-name/description/
 
 class Solution:
     def isLongPressedName(self, name: str, typed: str) -> bool:
@@ -15,7 +12,7 @@ class Solution:
             elif j > 0 and typed[j - 1] == typed[j]:
                 j += 1
             else:
-                return False
+                return False        
         return i == len(name)
 
 

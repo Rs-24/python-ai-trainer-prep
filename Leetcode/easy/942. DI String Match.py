@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/di-string-match/description/
-
-from typing import List 
 
 class Solution:
-    def diStringMatch(self, s: str) -> List[int]:
+    def diStringMatch(self, s: str) -> list[int]:
         # Time: O(n), n = len(s)
-        # Space, excluding output: O(1)
+        # Space: O(n)
         l, r = 0, len(s)
         out = []
         for ch in s:

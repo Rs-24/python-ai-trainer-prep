@@ -1,18 +1,20 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/flipping-an-image/description/
-
-from typing import List
 
 class Solution:
-    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
-        # Time: O(n^2), n = len(image) = len(image[0])
-        # Space: O(n)
-        for i in range(len(image)):
-            for j in range(len(image[0])):
-                image[i][j] ^= 1
-            image[i] = image[i][::-1]
+    def flipAndInvertImage(self, image: list[list[int]]) -> list[list[int]]:
+        # Time: O(m * n), m = len(image), n = len(image[0])
+        # Space: O(1)
+        m, n = len(image), len(image[0])
+        for row in range(m):
+            l, r = 0, n - 1
+            while l < r:
+                image[row][l] ^= 1
+                image[row][r] ^= 1
+                image[row][l], image[row][r] = image[row][r], image[row][l]
+                l += 1
+                r -= 1
+            if len(image[row]) % 2 != 0:
+                image[row][n // 2] ^= 1 
         return image
 
 

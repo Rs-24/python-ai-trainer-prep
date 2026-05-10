@@ -1,20 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/monotonic-array/description/
-
-from typing import List
 
 class Solution:
-    def isMonotonic(self, nums: List[int]) -> bool:
+    def isMonotonic(self, nums: list[int]) -> bool:
         # Time: O(n), n = len(nums)
         # Space: O(1)
         increasing = None
         for i in range(1, len(nums)):
-            if nums[i - 1] != nums[i]:
+            diff = nums[i] - nums[i - 1]
+            if diff != 0:
                 if increasing is None:
-                    increasing = nums[i - 1] < nums[i]
-                elif (nums[i - 1] < nums[i]) != increasing:
+                    increasing = diff > 0
+                elif diff > 0 != increasing:
                     return False
         return True
 

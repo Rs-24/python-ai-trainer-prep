@@ -1,31 +1,22 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 7 mins
 
-# Problem: https://leetcode.com/problems/summary-ranges/description/
-
-from typing import List
 
 class Solution:
-    def summaryRanges(self, nums: List[int]) -> List[str]:
+    def summaryRanges(self, nums: list[int]) -> list[str]:
         # Time: O(n), n = len(nums)
-        # Space, excluding output: O(1)
-        if not nums:
-            return []
+        # Space: O(n)
         out = []
-        start = nums[0]
-        prev = nums[0]
-        for num in nums[1:]:
-            if num - prev > 1:
-                if start == prev:
-                    out.append(str(prev))
-                else:
-                    out.append((str(start) + "->" + str(prev)))
-                start = num
-            prev = num
-        if start == prev:
-            out.append(str(prev))
-        else:
-            out.append((str(start) + "->" + str(prev)))
+        n = len(nums)
+        i = 0
+        while i < n:
+            a = nums[i]
+            while i + 1 < n and nums[i + 1] == nums[i] + 1:
+                i += 1
+            b = nums[i]
+            if a == b:
+                out.append(str(a))
+            else:
+                out.append(str(a) + "->" + str(b))
+            i += 1
         return out
 
 

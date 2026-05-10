@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/longest-uncommon-subsequence-i/description/
 
 class Solution:
     def findLUSlength(self, a: str, b: str) -> int:

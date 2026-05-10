@@ -1,23 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 7 mins
 
-# Problem: https://leetcode.com/problems/assign-cookies/description/
-
-from typing import List
 
 class Solution:
-    def findContentChildren(self, g: List[int], s: List[int]) -> int:
-        # Time: O(n log n + m log m), n = len(g), m = len(s)
-        # Space: O(n + m)
-        g.sort(reverse=True)
-        s.sort(reverse=True)
-        total = 0
+    def findContentChildren(self, g: list[int], s: list[int]) -> int:
+        # Time: O(m log m + n log n), m = len(g), n = len(s)
+        # Space: O(1)
+        g.sort()
+        s.sort()
         i = j = 0
         while i < len(g) and j < len(s):
             if g[i] <= s[j]:
-                total += 1
-                j += 1
-            i += 1
-        return total
+                i += 1
+            j += 1
+        return i
 
 

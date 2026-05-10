@@ -1,0 +1,12 @@
+# Time to write all of below including tests, explanation and time and aux
+# and total space: 1 min
+
+# Problem: https://leetcode.com/problems/count-commas-in-range/description/
+
+class Solution:
+    def countCommas(self, n: int) -> int:
+        # Time: O(1)
+        # Space: O(1)
+        return max(0, n - 999)
+
+
