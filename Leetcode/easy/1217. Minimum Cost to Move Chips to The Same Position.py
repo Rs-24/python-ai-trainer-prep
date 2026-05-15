@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/description/
-
-from typing import List
 
 class Solution:
-    def minCostToMoveChips(self, position: List[int]) -> int:
+    def minCostToMoveChips(self, position: list[int]) -> int:
         # Time: O(n), n = len(position)
         # Space: O(1)
         even = odd = 0

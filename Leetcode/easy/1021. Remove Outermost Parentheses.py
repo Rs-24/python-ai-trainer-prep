@@ -1,12 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/remove-outermost-parentheses/description/
 
 class Solution:
     def removeOuterParentheses(self, s: str) -> str:
         # Time: O(n), n = len(s)
-        # Space, excluding output: O(1)
+        # Space: O(n)
         out = []
         depth = 0
         for ch in s:

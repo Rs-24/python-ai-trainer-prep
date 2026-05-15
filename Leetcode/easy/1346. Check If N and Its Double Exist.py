@@ -1,13 +1,8 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/check-if-n-and-its-double-exist/description/
-
-from typing import List
 
 class Solution:
-    def checkIfExist(self, arr: List[int]) -> bool:
-        # Time: O(n)
+    def checkIfExist(self, arr: list) -> bool:
+        # Time: O(n), n = len(arr)
         # Space: O(n)
         seen = set()
         for num in arr:

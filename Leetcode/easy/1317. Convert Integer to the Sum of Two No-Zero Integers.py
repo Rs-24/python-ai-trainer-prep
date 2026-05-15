@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/convert-integer-to-the-sum-of-two-no-zero-integers/description/
-
-from typing import List
 
 class Solution:
-    def getNoZeroIntegers(self, n: int) -> List[int]:
+    def getNoZeroIntegers(self, n: int) -> list:
         # Time: O(n log n)
         # Space: O(1)
         def no_zero(x: int) -> bool:

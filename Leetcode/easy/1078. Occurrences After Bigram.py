@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/occurrences-after-bigram/description/
-
-from typing import List
 
 class Solution:
-    def findOcurrences(self, text: str, first: str, second: str) -> List[str]:
+    def findOcurrences(self, text: str, first: str, second: str) -> list[str]:
         # Time: O(n), n = len(text)
-        # Space, excluding output: O(n)
+        # Space: O(n)
         out = []
         text = text.split()
         for i in range(len(text) - 2):

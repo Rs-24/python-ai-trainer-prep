@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/description/
-
-from typing import List
 
 class Solution:
-    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+    def kidsWithCandies(self, candies: list, extraCandies: int) -> list:
         # Time: O(n), n = len(candies)
-        # Space, excluding output: O(1)
+        # Space: O(n)
         out = []
         best = max(candies)
         for c in candies:

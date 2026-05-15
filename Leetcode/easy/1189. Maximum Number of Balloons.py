@@ -1,17 +1,20 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 5 mins
 
-# Problem: https://leetcode.com/problems/maximum-number-of-balloons/description/
+
+from collections import Counter
 
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
         # Time: O(n), n = len(text)
         # Space: O(1)
-        count = [0] * 26
-        for ch in text:
-            count[ord(ch) - ord("a")] += 1
-        count[11] //= 2
-        count[14] //= 2
-        return min(count[i] for i in [1, 0, 11, 14, 13])
+        c = Counter(text)
+        best = float("inf")
+        for ch in "balloon":
+            if ch not in c:
+                return 0
+            if ch == "l" or ch == "o":
+                best = min(best, c[ch] // 2)
+            else:
+                best = min(best, c[ch])
+        return best
 
 
