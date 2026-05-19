@@ -1,27 +1,22 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 5 mins
 
-# Problem: https://leetcode.com/problems/reformat-phone-number/description/
 
 class Solution:
     def reformatNumber(self, number: str) -> str:
         # Time: O(n), n = len(number)
-        # Space, excluding output: O(n)
-        removed = []
+        # Space: O(n)
+        n = []
         for ch in number:
             if ch.isdigit():
-                removed.append(ch)
-        letters = []
-        while len(removed) > 4:
-            letters.extend(removed[:3])
-            letters.append("-")
-            removed = removed[3:]
-        if len(removed) <= 3:
-            letters.extend(removed)
+                n.append(ch)
+        groups = []
+        while len(n) > 4:
+            groups.append("".join(n[:3]))
+            n = n[3:]
+        if len(n) <= 3:
+            groups.append("".join(n))
         else:
-            letters.extend(removed[:2])
-            letters.append("-")
-            letters.extend(removed[2:])
-        return "".join(letters)
+            groups.append("".join(n[:2]))
+            groups.append("".join(n[2:]))
+        return "-".join(groups)
 
 

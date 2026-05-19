@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/check-array-formation-through-concatenation/description/
-
-from typing import List
 
 class Solution:
-    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
+    def canFormArray(self, arr: list, pieces: list[list]) -> bool:
         # Time: O(m + n), m = len(arr), n = len(pieces)
         # Space: O(n)
         d = {p[0]: p for p in pieces}

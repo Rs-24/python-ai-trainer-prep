@@ -1,12 +1,7 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/shuffle-the-array/description/
-
-from typing import List
 
 class Solution:
-    def shuffle(self, nums: List[int], n: int) -> List[int]:
+    def shuffle(self, nums: list, n: int) -> list:
         # Time: O(n)
         # Space: O(n)
         out = []

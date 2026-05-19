@@ -1,16 +1,11 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/determine-whether-matrix-can-be-obtained-by-rotation/description/
-
-from typing import List
 
 class Solution:
-    def findRotation(self, mat: List[List[int]], target: List[List[int]]) -> bool:
-        # Time: O(m * n), m, n = len(mat), len(mat[0])
+    def findRotation(self, mat: list[list], target: list[list]) -> bool:
+        # Time: O(m * n), m = len(mat), n = len(mat[0])
         # Space: O(m * n)
         m, n = len(mat), len(mat[0])
-        def rotate(x: List[List[int]]) -> List[List[int]]:
+        def rotate(x: list[list]) -> list[list]:
             out = [[0] * n for _ in range(m)]
             for i in range(m):
                 for j in range(n):

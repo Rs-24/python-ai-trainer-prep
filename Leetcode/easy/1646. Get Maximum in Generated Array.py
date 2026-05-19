@@ -1,12 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/get-maximum-in-generated-array/description/
 
 class Solution:
     def getMaximumGenerated(self, n: int) -> int:
         # Time: O(n)
-        # Space, excluding output: O(n)
+        # Space: O(n)
         if n == 0:
             return 0
         arr = [0] * (n + 1)
@@ -20,6 +17,6 @@ class Solution:
         while 2 * i + 1 <= n:
             arr[2 * i + 1] = arr[i] + arr[i + 1]
             i += 1
-        return max(arr)
+        return max(arr)       
 
 

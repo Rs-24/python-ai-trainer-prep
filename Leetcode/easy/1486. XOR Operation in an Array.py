@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/xor-operation-in-an-array/description/
 
 class Solution:
     def xorOperation(self, n: int, start: int) -> int:

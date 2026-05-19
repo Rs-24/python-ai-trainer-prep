@@ -1,18 +1,12 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/decode-xored-array/description/
-
-from typing import List
 
 class Solution:
-    def decode(self, encoded: List[int], first: int) -> List[int]:
+    def decode(self, encoded: list, first: int) -> list:
         # Time: O(n), n = len(encoded)
-        # Space, excluding output: O(1)
-        res = [first]
+        # Space: O(n)
+        out = [first]
         for num in encoded:
-            first ^= num
-            res.append(first)
-        return res
+            out.append(out[-1] ^ num)
+        return out
 
 

@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence/description/
-
-from typing import List
 
 class Solution:
-    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+    def canMakeArithmeticProgression(self, arr: list) -> bool:
         # Time: O(n log n), n = len(arr)
-        # Space: O(n)
+        # Space: O(1)
         arr.sort()
         prev = arr[1] - arr[0]
         for i in range(2, len(arr)):

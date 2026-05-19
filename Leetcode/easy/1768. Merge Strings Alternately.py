@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/merge-strings-alternately/description/
 
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:

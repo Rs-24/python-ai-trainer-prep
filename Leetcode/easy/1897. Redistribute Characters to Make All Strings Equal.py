@@ -1,22 +1,14 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/redistribute-characters-to-make-all-strings-equal/description/
 
-from typing import List
 from collections import Counter
 
 class Solution:
-    def makeEqual(self, words: List[str]) -> bool:
-        # Time: O(k), k = total characters in words
-        # Space: O(1)
+    def makeEqual(self, words: list) -> bool:
+        # Time: O(n), n = total number of characters in words
+        # Space: O(n)
         c = Counter()
-        for word in words:
-            c.update(word)
-        n = len(words)
-        for freq in c.values():
-            if freq % n != 0:
-                return False
-        return True
+        for w in words:
+            c.update(w)
+        return all(freq % len(words) == 0 for freq in c.values())
 
 

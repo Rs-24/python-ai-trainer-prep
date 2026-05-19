@@ -1,23 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/check-if-one-string-swap-can-make-strings-equal/description/
 
 class Solution:
     def areAlmostEqual(self, s1: str, s2: str) -> bool:
         # Time: O(n), n = len(s1) = len(s2)
         # Space: O(1)
-        num_diff = []
-        for i, ch in enumerate(s1):
-            if ch != s2[i]:
-                num_diff.append(i)
-                if len(num_diff) > 2:
-                    return False
-        if len(num_diff) == 1:
-            return False
-        elif len(num_diff) == 0:
+        diff = []
+        for i in range(len(s1)):
+            if s1[i] != s2[i]:
+                diff.append(i)
+            if len(diff) > 2:
+                return False 
+        if len(diff) == 0:
             return True
-        i, j = num_diff
-        return s1[i] == s2[j] and s1[j] == s2[i]
+        if len(diff) != 2:
+            return False
+        return s1[diff[0]] == s2[diff[1]] and s1[diff[1]] == s2[diff[0]]
 
 

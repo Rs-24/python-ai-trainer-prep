@@ -1,17 +1,14 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/mean-of-array-after-removing-some-elements/description/
-
-from typing import List
 
 class Solution:
-    def trimMean(self, arr: List[int]) -> float:
+    def trimMean(self, arr: list) -> float:
         # Time: O(n log n), n = len(arr)
-        # Space: O(n)
+        # Space: O(1)
         arr.sort()
         n = len(arr)
-        arr = arr[int(n * 0.05):int(0.95 * n)]
-        return sum(arr) / len(arr)
+        s = 0
+        for i in range(int(n * 0.05), int(n * 0.95)):
+            s += arr[i]
+        return s / (0.9 * n)
 
 

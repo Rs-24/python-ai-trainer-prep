@@ -1,20 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/thousand-separator/description/
 
 class Solution:
     def thousandSeparator(self, n: int) -> str:
         # Time: O(log n)
         # Space: O(log n)
-        s = str(n)
+        if n == 0:
+            return "0"
         out = []
-        while len(s) > 3:
-            temp = s[-3:]
-            out.extend(temp[::-1])
-            out.append(".")
-            s = s[:-3]
-        out.extend(s[::-1])
-        return "".join(out[::-1])
+        digits = 0
+        while n > 0:
+            if digits > 0 and digits % 3 == 0:
+                out.append(".")
+            out.append(str(n % 10))
+            n //= 10
+            digits += 1
+        return "".join(reversed(out))
 
 
