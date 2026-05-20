@@ -1,21 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 min
 
-# Problem: https://leetcode.com/problems/count-vowel-substrings-of-a-string/description/
 
 class Solution:
     def countVowelSubstrings(self, word: str) -> int:
-        # Time: O(n^2)
+        # Time: O(n^2), n = len(word)
         # Space: O(1)
-        vowels = set("aeiou")
         count = 0
+        v = set("aeiou")
         for i in range(len(word)):
-            seen = set()
-            for j in range(i, len(word)):
-                if word[j] not in vowels:
-                    break
-                seen.add(word[j])
-                if len(seen) == 5:
+            s = set()
+            j = i
+            while j < len(word) and word[j] in v:
+                s.add(word[j])
+                j += 1
+                if len(s) == 5:
                     count += 1
         return count
 

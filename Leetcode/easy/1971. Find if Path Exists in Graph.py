@@ -1,28 +1,24 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 4 mins
 
-# Problem: https://leetcode.com/problems/find-if-path-exists-in-graph/description/
 
-from typing import List
 from collections import defaultdict, deque
 
 class Solution:
-    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        # Time: O(n + k), k = len(edges)
-        # Space: O(n + k)
+    def validPath(self, n: int, edges: list[list], source: int, destination: int) -> bool:
+        # Time: O(L + L * n), L = len(edges)
+        # Space: O(L + L * n)
         neighbours = defaultdict(list)
         for a, b in edges:
             neighbours[a].append(b)
             neighbours[b].append(a)
-        seen = set()
+        seen = {source}
         q = deque([source])
         while q:
-            cur = q.popleft()
-            if cur == destination:
+            node = q.popleft()
+            if node == destination:
                 return True
-            seen.add(cur)
-            for n in neighbours[cur]:
+            for n in neighbours[node]:
                 if n not in seen:
+                    seen.add(n)
                     q.append(n)
         return False
 
