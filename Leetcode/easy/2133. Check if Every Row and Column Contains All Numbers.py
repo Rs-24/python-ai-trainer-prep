@@ -1,23 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 3 mins
 
-# Problem: https://leetcode.com/problems/check-if-every-row-and-column-contains-all-numbers/description/
-
-from typing import List
 
 class Solution:
-    def checkValid(self, matrix: List[List[int]]) -> bool:
-        # Time: O(n^2), n = len(matrix) = len(matrix[0])
+    def checkValid(self, matrix: list[list]) -> bool:
+        # Time: O(n^2)
         # Space: O(n)
-        n = len(matrix) 
-        for row in matrix:
-            if len(set(row)) != n:
+        n = len(matrix)
+        s = set(i for i in range(1, n + 1))
+        for r in matrix:
+            if set(r) != s:
                 return False
         for c in range(n):
-            vals = set()
+            seen = set()
             for r in range(n):
-                vals.add(matrix[r][c])
-            if len(set(vals)) != n:
+                seen.add(matrix[r][c])
+            if seen != s:
                 return False
         return True
 

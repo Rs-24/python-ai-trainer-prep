@@ -1,17 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/find-first-palindromic-string-in-the-array/description/
-
-from typing import List
 
 class Solution:
-    def firstPalindrome(self, words: List[str]) -> str:
-        # Time: O(n * m), n = len(words), m = average length of a word in
-        # words
-        # Space: O(m)
+    def firstPalindrome(self, words: list) -> str:
+        # Time: O(n), n = total number of characters in words
+        # Space: O(1)
+        def is_palindrome(s: str) -> bool:
+            l, r = 0, len(s) - 1
+            while l < r:
+                if s[l] != s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
         for word in words:
-            if word == word[::-1]:
+            if is_palindrome(word):
                 return word
         return ""
 
