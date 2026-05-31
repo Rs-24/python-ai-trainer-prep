@@ -1,23 +1,21 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/separate-the-digits-in-an-array/description/
-
-from typing import List
 
 class Solution:
-    def separateDigits(self, nums: List[int]) -> List[int]:
-        # Time: O(d), d = total number of digits in nums
-        # Space: O(d)
-        def separate(x: int):
-            out = [0] if x == 0 else []
+    def separateDigits(self, nums: list) -> list:
+        # Time: O(n log n)
+        # Space: O(n)
+        def separate(x: int) -> list:
+            if x == 0:
+                return [0]
+            d = []
             while x > 0:
-                out.append(x % 10)
+                d.append(x % 10)
                 x //= 10
-            return reversed(out)
-        res = []
+            d.reverse()
+            return d
+        out = []
         for num in nums:
-            res.extend(separate(num))
-        return res
+            out.extend(separate(num))
+        return out
 
 

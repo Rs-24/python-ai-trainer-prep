@@ -1,26 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/check-if-array-is-good/description/
-
-from typing import List
+from collections import Counter
 
 class Solution:
-    def isGood(self, nums: List[int]) -> bool:
-        # Time: O(n), n = len(nums)
+    def isGood(self, nums: list) -> bool:
+        # Time: O(n^2)
         # Space: O(n)
-        n = len(nums)
-        seen = set()
-        largest_val_count = 0
-        for num in nums:
-            if num < 1 or num > n - 1:
+        c  = Counter(nums)
+        for x in range(1, len(nums)):
+            if x not in nums:
                 return False
-            if num == n - 1:
-                largest_val_count += 1
-            else:
-                if num in seen:
-                    return False
-                seen.add(num)
-        return largest_val_count == 2 and len(seen) == n - 2
+            if x < len(nums) - 1 and c[x] != 1:
+                return False
+            if x == len(nums) - 1 and c[x] != 2:
+                return False
+        return True
 
 

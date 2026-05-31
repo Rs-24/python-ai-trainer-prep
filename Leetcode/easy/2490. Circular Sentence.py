@@ -1,18 +1,15 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/circular-sentence/description/
 
 class Solution:
     def isCircularSentence(self, sentence: str) -> bool:
-        # Time: O(n), n = len(sentence)
+        # Time: O(n)
         # Space: O(n)
-        words = sentence.split()
-        prev = sentence[-1]
-        for word in words:
-            if prev[-1] != word[0]:
+        s = sentence.split()
+        p = s[-1]
+        for w in s:
+            if p[-1] != w[0]:
                 return False
-            prev = word
+            p = w
         return True
 
 

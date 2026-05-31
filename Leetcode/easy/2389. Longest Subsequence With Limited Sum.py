@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
-
-from typing import List
 
 class Solution:
-    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
-        # Time: O(m log m + m * n), m = len(nums), n = len(queries)
-        # Aux space: O(m)
+    def answerQueries(self, nums: list, queries: list) -> list:
+        # Time: O(n log n + n^2)
+        # Space: O(n)
         nums.sort()
         out = []
         for q in queries:

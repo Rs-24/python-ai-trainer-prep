@@ -1,18 +1,13 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/number-of-arithmetic-triplets/description/
-
-from typing import List
 
 class Solution:
-    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
-        # Time: O(n), n = len(nums)
+    def arithmeticTriplets(self, nums: list, diff: int) -> int:
+        # Time: O(n)
         # Space: O(n)
-        seen = set(nums)
+        s = set(nums)
         count = 0
         for num in nums:
-            if num + diff in seen and num + 2 * diff in seen:
+            if num + diff in s and num + 2 * diff in s:
                 count += 1
         return count
 

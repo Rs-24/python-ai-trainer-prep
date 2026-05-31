@@ -1,13 +1,8 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/apply-operations-to-an-array/description/
-
-from typing import List
 
 class Solution:
-    def applyOperations(self, nums: List[int]) -> List[int]:
-        # Time: O(n), n = len(nums)
+    def applyOperations(self, nums: list) -> list:
+        # Time: O(n)
         # Space: O(1)
         for i in range(len(nums) - 1):
             if nums[i] == nums[i + 1]:

@@ -1,23 +1,19 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/matrix-similarity-after-cyclic-shifts/description/
-
-from typing import List
 
 class Solution:
-    def areSimilar(self, mat: List[List[int]], k: int) -> bool:
-        # Time: O(m * n), m = len(mat), n = len(mat[0])
-        # Space: O(n)
+    def areSimilar(self, mat: list[list], k: int) -> bool:
+        # Time: O(n^2)
+        # Space: O(1)
         m, n = len(mat), len(mat[0])
         k %= n
-        for r in range(m):
-            if r % 2 == 0:
-                shifted = mat[r][k:] + mat[r][:k]
-            else:
-                shifted = mat[r][-k:] + mat[r][:-k]
-            if shifted != mat[r]:
-                return False
+        for idx, r in enumerate(mat):
+            i = 0
+            j = k if idx % 2 == 0 else n - 1 - k
+            while i < n:
+                if r[i] != r[j % n]:
+                    return False
+                i += 1
+                j += 1
         return True
 
 

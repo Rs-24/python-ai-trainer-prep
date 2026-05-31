@@ -1,20 +1,14 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/split-strings-by-separator/description/
-
-from typing import List
 
 class Solution:
-    def splitWordsBySeparator(self, words: List[str], separator: str) -> List[str]:
-        # Time: O(n), n = total number of characters in words
-        # Space: O(n) 
+    def splitWordsBySeparator(self, words: list, separator: str) -> list:
+        # Time: O(n)
+        # Space: O(n)
         out = []
-        for word in words:
-            parts = word.split(separator)
-            for part in parts:
-                if part:
-                    out.append(part)
+        for w in words:
+            for p in w.split(separator):
+                if p:
+                    out.append(p)
         return out
 
 

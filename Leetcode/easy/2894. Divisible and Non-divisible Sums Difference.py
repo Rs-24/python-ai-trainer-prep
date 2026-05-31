@@ -1,7 +1,4 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/divisible-and-non-divisible-sums-difference/description/
 
 class Solution:
     def differenceOfSums(self, n: int, m: int) -> int:

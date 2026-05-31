@@ -1,18 +1,13 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/odd-string-difference/description/
-
-from typing import List
 
 class Solution:
-    def oddString(self, words: List[str]) -> str:
-        # Time: O(m * n), m = len(words)
+    def oddString(self, words: list) -> str:
+        # Time: O(n)
         # Space: O(n)
-        def convert(s: str) -> List[int]:
+        def convert(s: str) -> list:
             out = []
-            for i in range(len(s) - 1):
-                out.append(ord(s[i + 1]) - ord(s[i]))
+            for i in range(1, len(s)):
+                out.append(ord(s[i]) - ord(s[i - 1]))
             return out
         c1 = convert(words[0])
         c2 = convert(words[1])

@@ -1,23 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/find-subarrays-with-equal-sum/description/
-
-from typing import List
 
 class Solution:
-    def findSubarrays(self, nums: List[int]) -> bool:
-        # Time: O(n), n = len(nums)
+    def findSubarrays(self, nums: list) -> bool:
+        # Time: O(n)
         # Space: O(n)
-        seen = set()
-        total = nums[0] + nums[1]
-        seen.add(total)
+        s = set()
+        cur = nums[0] + nums[1]
+        s.add(cur)
         for i in range(2, len(nums)):
-            total += nums[i]
-            total -= nums[i - 2]
-            if total in seen:
+            cur += nums[i]
+            cur -= nums[i - 2]
+            if cur in s:
                 return True
-            seen.add(total)
+            s.add(cur)
         return False
 
 

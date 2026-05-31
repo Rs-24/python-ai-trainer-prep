@@ -1,22 +1,15 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/minimum-operations-to-collect-elements/description/
-
-from typing import List
 
 class Solution:
-    def minOperations(self, nums: List[int], k: int) -> int:
-        # Time: O(n), n = len(nums)
-        # Space: O(n)
-        seen = set()
-        count = 0
+    def minOperations(self, nums: list, k: int) -> int:
+        # Time: O(n)
+        # Space: O(k)
+        need = set(x for x in range(1, k + 1))
+        have = set()
         for i in range(len(nums) - 1, -1, -1):
-            if 1 <= nums[i] <= k:
-                seen.add(nums[i])
-            count += 1
-            if len(seen) == k:
-                return count
-        return len(nums)
+            if nums[i] in need:
+                have.add(nums[i])
+            if need == have:
+                return len(nums) - i
 
 

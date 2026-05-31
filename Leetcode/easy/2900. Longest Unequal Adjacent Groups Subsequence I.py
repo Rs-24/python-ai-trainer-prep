@@ -1,14 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/longest-unequal-adjacent-groups-subsequence-i/description/
-
-from typing import List
 
 class Solution:
-    def getLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
-        # Time: O(n), n = len(groups) = len(words)
-        # Space: O(1)
+    def getLongestSubsequence(self, words: list, groups: list) -> list:
+        # Time: O(n)
+        # Space: O(n)
         prev = groups[0]
         out = [words[0]]
         for i in range(1, len(groups)):
