@@ -1,22 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/button-with-longest-push-time/description/
-
-from typing import List
 
 class Solution:
-    def buttonWithLongestTime(self, events: List[List[int]]) -> int:
-        # Time: O(n), n = len(events)
+    def buttonWithLongestTime(self, events: list[list]) -> int:
+        # Time: O(n)
         # Space: O(1)
-        longest_time = events[0][1]
-        corresponding_index = events[0][0]
-        prev_time = 0
-        for a, b in events:
-            if b - prev_time > longest_time or (b - prev_time == longest_time and a < corresponding_index):
-                longest_time = b - prev_time
-                corresponding_index = a
-            prev_time = b
-        return corresponding_index
+        ans = events[0][0]
+        b = events[0][1]
+        for i in range(1, len(events)):
+            if events[i][1] - events[i - 1][1] > b:
+                b = events[i][1] - events[i - 1][1]
+                ans = events[i][0]
+            elif events[i][1] - events[i - 1][1] == b and events[i][0] < ans:
+                ans = events[i][0]
+        return ans
 
 

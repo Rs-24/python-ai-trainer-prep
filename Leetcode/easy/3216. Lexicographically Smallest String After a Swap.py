@@ -1,11 +1,8 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/lexicographically-smallest-string-after-a-swap/description/
 
 class Solution:
     def getSmallestString(self, s: str) -> str:
-        # Time: O(n), n = len(s)
+        # Time: O(n)
         # Space: O(n)
         s = list(s)
         for i in range(1, len(s)):

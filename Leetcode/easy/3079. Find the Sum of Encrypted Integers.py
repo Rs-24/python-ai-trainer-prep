@@ -1,17 +1,20 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/find-the-sum-of-encrypted-integers/description/
-
-from typing import List
 
 class Solution:
-    def sumOfEncryptedInt(self, nums: List[int]) -> int:
-        # Time: O(n * d), n = len(nums), d = average number of digits per word
-        # in nums
-        # Space: O(1)
+    def sumOfEncryptedInt(self, nums: list) -> int:
+        # Time: O(n log x)
+        # Time: O(1)
         def encrypt(x: int) -> int:
-            return int(max(str(x)) * len(str(x)))
-        return sum(encrypt(num) for num in nums)
+            p = -1
+            m = 0
+            while x > 0:
+                p += 1
+                m = max(m, x % 10)
+                x //= 10
+            out = 0
+            for i in range(p + 1):
+                out += m * (10 ** i)
+            return out
+        return sum(encrypt(n) for n in nums)
 
 

@@ -1,20 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/apple-redistribution-into-boxes/description/
 
-from typing import List
 
 class Solution:
-    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
-        # Time: O(m + n log n), m = len(apple), n = len(capacity)
-        # Space: O(m)
-        total = sum(apple)
+    def minimumBoxes(self, apple: list, capacity: list) -> int:
+        # Time: O(n log n)
+        # Space: O(n)
+        a = sum(apple)
         capacity.sort(reverse=True)
-        cur = 0
+        t = 0
         for i, c in enumerate(capacity):
-            cur += c
-            if cur >= total:
+            t += c
+            if t >= a:
                 return i + 1
 
 

@@ -1,18 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/number-of-changing-keys/description/
 
 class Solution:
     def countKeyChanges(self, s: str) -> int:
-        # Time: O(n), n = len(s)
+        # Time: O(n)
         # Space: O(1)
-        changes = 0
-        prev = None
-        for ch in s:
-            if prev and prev != ch.lower():
-                changes += 1
-            prev = ch.lower()
-        return changes
+        return sum(1 for i in range(1, len(s)) if s[i - 1].lower() != s[i].lower())
 
 

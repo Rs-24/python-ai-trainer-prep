@@ -1,23 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/adjacent-increasing-subarrays-detection-i/description/
-
-from typing import List
 
 class Solution:
-    def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
-        # Time: O(n), n = len(nums)
+    def hasIncreasingSubarrays(self, nums: list, k: int) -> bool:
+        # Time: O(n)
         # Space: O(1)
-        cur = 1
-        prev = 0
+        p, c = 0, 1
         for i in range(1, len(nums)):
             if nums[i - 1] < nums[i]:
-                cur += 1
+                c += 1
             else:
-                prev = cur
-                cur = 1
-            if (prev >= k and cur >= k) or cur >= 2 * k:
+                p = c
+                c = 1
+            if (p >= k and c >= k) or p >= 2 * k or c >= 2 * k:
                 return True
         return False
 

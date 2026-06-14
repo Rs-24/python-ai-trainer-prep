@@ -1,26 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/fruits-into-baskets-ii/description/
-
-from typing import List
 
 class Solution:
-    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        # Time: O(n^2), n = len(fruits)
+    def numOfUnplacedFruits(self, fruits: list, baskets: list) -> int:
+        # Time: O(n^2)
         # Space: O(n)
-        n = len(fruits)
-        used = [False] * n
-        unplaced = 0
-        for fruit in fruits:
-            placed = False
-            for i in range(n):
-                if not used[i] and baskets[i] >= fruit:
+        used = [False] * len(baskets)
+        p = 0
+        for f in fruits:
+            for i in range(len(used)):
+                if not used[i] and f <= baskets[i]:
                     used[i] = True
-                    placed = True
+                    p += 1
                     break
-            if not placed:
-                unplaced += 1
-        return unplaced
+        return len(fruits) - p
 
 

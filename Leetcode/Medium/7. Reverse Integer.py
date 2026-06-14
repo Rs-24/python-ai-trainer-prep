@@ -1,33 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 26 mins
 
-# Problem: https://leetcode.com/problems/reverse-integer/description/
 
 class Solution:
     def reverse(self, x: int) -> int:
-        rev = 0
-        negative = x < 0
-        limit = 2**31 if negative else 2**31 - 1
+        # Time: O(log x)
+        # Space: O(1)
+        s = 1 if x >= 0 else -1
+        m = 2 ** 31 - 1 if s else 2 ** 31
         x = abs(x)
+        r = 0
         while x > 0:
-            if rev > ((limit - (x % 10)) // 10):
+            if r > (m - x % 10) // 10:
                 return 0
-            rev = rev * 10 + (x % 10)
+            r = r * 10 + x % 10
             x //= 10
-        return rev * (-1) if negative else rev
+        return s * r
 
-if __name__ == "__main__":
-    sol = Solution()
-    assert sol.reverse(-10) == -1
-    assert sol.reverse(220) == 22
-    assert sol.reverse(-12) == -21
-    assert sol.reverse(0) == 0
-    assert sol.reverse(123) == 321
-    
-# Explanation: the code takes abs(x) and reverses the digits while checking
-# if it is within the required range, then adds the negative sign back on if x
-# was originally negative
-# Time: O(d), d = number of digits in x
-# Space: O(1)
-    
 

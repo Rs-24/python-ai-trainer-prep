@@ -1,20 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/smallest-divisible-digit-product-i/description/
 
 class Solution:
     def smallestNumber(self, n: int, t: int) -> int:
-        # Time: O((k - n) * log k), k = final answer
+        # Time: O(n log n)
         # Space: O(1)
-        def check(x: int) -> bool:
-            product = 1
+        def digit_product(x: int) -> int:
+            p = 1
             while x > 0:
-                product *= x % 10
+                p *= x % 10
                 x //= 10
-            return product % t == 0
-        while not check(n):
+            return p
+        while digit_product(n) % t != 0:
             n += 1
-        return n 
+        return n
 
 

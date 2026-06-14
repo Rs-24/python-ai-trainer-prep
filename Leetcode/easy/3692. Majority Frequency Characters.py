@@ -1,30 +1,22 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/majority-frequency-characters/description/
 
 from collections import Counter, defaultdict
 
 class Solution:
     def majorityFrequencyGroup(self, s: str) -> str:
-        # Time: O(n), n = len(s)
+        # Time: O(n)
         # Space: O(n)
         c = Counter(s)
         d = defaultdict(list)
-        for ch, freq in c.items():
-            d[freq].append(ch)
-        majority = max(len(chars) for chars in d.values())
-        best_freq = None
+        for ch, f in c.items():
+            d[f].append(ch)
+        m = max(len(v) for v in d.values())
+        b_f = None
         ans = []
-        for freq, chars in d.items():
-            if len(chars) == majority:
-                if not ans:
-                    ans[:] = chars
-                    best_freq = freq
-                else:
-                    if freq > best_freq:
-                        best_freq = freq
-                        ans[:] = chars
+        for f, s in d.items():
+            if len(s) == m and (b_f is None or f > b_f):
+                b_f = f
+                ans[:] = s
         return "".join(ans)
 
 

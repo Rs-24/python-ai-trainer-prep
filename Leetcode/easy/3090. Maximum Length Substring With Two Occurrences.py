@@ -1,22 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/maximum-length-substring-with-two-occurrences/description/
 
 class Solution:
     def maximumLengthSubstring(self, s: str) -> int:
-        # Time: O(n), n = len(s)
+        # Time: O(n)
         # Space: O(1)
-        count = [0] * 26
-        l = 0
-        best = 0
+        c = [0] * 26
+        l = b = 0
         for r, ch in enumerate(s):
-            idx = ord(ch) - ord("a")
-            count[idx] += 1
-            while count[idx] > 2:
-                count[ord(s[l]) - ord("a")] -= 1
+            c[ord(ch) - ord("a")] += 1
+            while c[ord(s[l]) - ord("a")] > 2:
+                c[ord(s[l]) - ord("a")] -= 1
                 l += 1
-            best = max(best, r - l + 1)
-        return best
+            b = max(b, r - l + 1)
+        return b
 
 

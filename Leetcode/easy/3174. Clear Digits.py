@@ -1,19 +1,16 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/clear-digits/description/
 
 class Solution:
     def clearDigits(self, s: str) -> str:
-        # Time: O(n), n = len(s)
-        # Aux space: O(n)
-        stack = []
+        # Time: O(n)
+        # Space: O(n)
+        a = []
         for ch in s:
             if ch.isdigit():
-                if stack:
-                    stack.pop()
+                if a:
+                    a.pop()
             else:
-                stack.append(ch)
-        return "".join(stack)
+                a.append(ch)
+        return "".join(a)
 
 

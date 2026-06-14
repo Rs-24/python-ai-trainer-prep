@@ -1,19 +1,9 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/alternating-groups-i/description/
-
-from typing import List
 
 class Solution:
-    def numberOfAlternatingGroups(self, colors: List[int]) -> int:
-        # Time: O(n), n = len(colors)
+    def numberOfAlternatingGroups(self, colors: list) -> int:
+        # Time: O(n)
         # Space: O(1)
-        n = len(colors)
-        count = 0
-        for i in range(n):
-            if colors[i] != colors[(i - 1) % n] and colors[i] != colors[(i + 1) % n]:
-                count += 1
-        return count
+        return sum(1 for i in range(len(colors)) if colors[i] != colors[(i + 1) % len(colors)] and colors[i] != colors[(i - 1) % len(colors)])
 
 

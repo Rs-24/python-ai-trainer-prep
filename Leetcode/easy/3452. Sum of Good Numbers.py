@@ -1,24 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/sum-of-good-numbers/description/
-
-from typing import List
 
 class Solution:
-    def sumOfGoodNumbers(self, nums: List[int], k: int) -> int:
-        # Time: O(n), n = len(nums)
+    def sumOfGoodNumbers(self, nums: list, k: int) -> int:
+        # Time: O(n)
         # Space: O(1)
-        total = 0
-        n = len(nums)
-        for i, num in enumerate(nums):
-            if 0 <= i - k < n:
-                if nums[i - k] >= num:
+        t = 0
+        for i, n in enumerate(nums):
+            if 0 <= i - k < len(nums):
+                if n <= nums[i - k]:
                     continue
-            if 0 <= i + k < n:
-                if nums[i + k] >= num:
+            if 0 <= i + k < len(nums):
+                if n <= nums[i + k]:
                     continue
-            total += num
-        return total
+            t += n
+        return t
 
 

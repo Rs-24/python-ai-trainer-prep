@@ -1,22 +1,14 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/find-most-frequent-vowel-and-consonant/description/
 
 from collections import Counter
 
 class Solution:
     def maxFreqSum(self, s: str) -> int:
-        # Time: O(n), n = len(s)
-        # Space: O(1)
+        # Time: O(n)
+        # Space: O(n)
         c = Counter(s)
-        vowels = set("aeiou")
-        max_v = max_c = 0
-        for ch, freq in c.items():
-            if ch in vowels:
-                max_v = max(max_v, freq)
-            else:
-                max_c = max(max_c, freq)
-        return max_v + max_c
+        m_v = max(f for ch, f in c.items() if ch in "aeiou") if any(ch in "aeiou" for ch in s) else 0
+        m_c = max(f for ch, f in c.items() if ch not in "aeiou") if any(ch not in "aeiou" for ch in s) else 0
+        return m_v + m_c
 
 

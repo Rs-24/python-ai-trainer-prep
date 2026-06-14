@@ -1,25 +1,22 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 2 mins
 
-# Problem: https://leetcode.com/problems/valid-elements-in-an-array/description/
 
 class Solution:
     def findValidElements(self, nums: list[int]) -> list[int]:
-        # Time: O(n), n = len(nums)
+        # Time: O(n)
         # Space: O(n)
-        n = len(nums)
-        if n <= 2:
+        if len(nums) == 1:
             return nums
-        l_max = nums[0]
-        r_max = [0] * n
-        r_max[-1] = nums[-1]
-        for i in range(n - 2, -1, -1):
-            r_max[i] = max(nums[i], r_max[i + 1])
+        l = [nums[0]]
+        for i in range(1, len(nums)):
+            l.append(max(l[-1], nums[i]))
+        r = [nums[-1]]
+        for i in range(len(nums) - 2, -1, -1):
+            r.append(max(r[-1], nums[i]))
+        r.reverse()
         out = []
-        for i in range(1, n - 1):
-            if nums[i] > l_max and nums[i] > r_max[i]:
+        for i in range(1, len(nums) - 1):
+            if nums[i] > l[i- 1] or nums[i] > r[i + 1]:
                 out.append(nums[i])
-            l_max = max(l_max, nums[i])
         return [nums[0]] + out + [nums[-1]]
 
 

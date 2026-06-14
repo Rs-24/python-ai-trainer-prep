@@ -1,19 +1,14 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/minimum-number-of-operations-to-make-elements-in-array-distinct/description/
-
-from typing import List
 
 class Solution:
-    def minimumOperations(self, nums: List[int]) -> int:
-        # Time: O(n), n = len(nums)
+    def minimumOperations(self, nums: list) -> int:
+        # Time: O(n)
         # Space: O(n)
-        seen = set()
+        s = set()
         for i in range(len(nums) - 1, -1, -1):
-            if nums[i] in seen:
+            if nums[i] in s:
                 return i // 3 + 1
-            seen.add(nums[i])
+            s.add(nums[i])
         return 0
 
 

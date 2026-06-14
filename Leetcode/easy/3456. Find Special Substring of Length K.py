@@ -1,21 +1,25 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/find-special-substring-of-length-k/description/
 
 class Solution:
     def hasSpecialSubstring(self, s: str, k: int) -> bool:
-        # Time: O(n), n = len(s)
+        # Time: O(n)
         # Space: O(1)
-        n = len(s)
-        i = 0
-        while i < n:
-            j = i
-            while j < n and s[j] == s[i]:
-                j += 1
-            if j - i == k:
-                return True
-            i = j
+        c = 1
+        for i in range(1, len(s)):
+            if s[i - 1] == s[i]:
+                c += 1
+            else:
+                if c == k:
+                    start = i - k
+                    l_ok = (start == 0 or s[start - 1] != s[start])
+                    r_ok = (i == len(s) or s[i] != s[start])
+                    if l_ok and r_ok:
+                        return True
+                c = 1
+            if c == k:
+                start = len(s) - k
+                l_ok = (start == 0 or s[start - 1] != s[start])
+                return l_ok
         return False
 
 

@@ -1,21 +1,17 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/maximum-product-of-two-digits/description/
 
 class Solution:
     def maxProduct(self, n: int) -> int:
         # Time: O(log n)
         # Space: O(1)
-        first = second = 0
+        f = s = 0
         while n > 0:
-            d = n % 10
-            if d >= first:
-                second = first
-                first = d
-            elif d >= second:
-                second = d
+            if n % 10 >= f:
+                s = f
+                f = n % 10
+            elif n % 10 >= s:
+                s = n % 10
             n //= 10
-        return first * second
+        return f * s
 
 

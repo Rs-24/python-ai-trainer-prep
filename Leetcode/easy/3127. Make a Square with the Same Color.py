@@ -1,24 +1,18 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 1 min
 
-# Problem: https://leetcode.com/problems/make-a-square-with-the-same-color/description/
-
-from typing import List
 
 class Solution:
-    def canMakeSquare(self, grid: List[List[str]]) -> bool:
+    def canMakeSquare(self, grid: list[list]) -> bool:
         # Time: O(1)
         # Space: O(1)
         for r in range(2):
             for c in range(2):
-                black = white = 0
-                for dr in range(2):
-                    for dc in range(2):
-                        if grid[r + dr][c + dc] == "B":
-                            black += 1
-                        else:
-                            white += 1
-                if max(black, white) >= 3:
+                b = w = 0
+                for dr, dc in [(0, 0), (0, 1), (1, 0), (1, 1)]:
+                    if grid[r + dr][c + dc] == "B":
+                        b += 1
+                    else:
+                        w += 1
+                if b == 3 or w == 3:
                     return True
         return False
 
