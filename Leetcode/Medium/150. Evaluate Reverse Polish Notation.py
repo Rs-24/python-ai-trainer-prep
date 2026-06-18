@@ -1,43 +1,24 @@
-# Time to write all of below including tests, explanation and time and aux
-# and total space: 30 mins
 
-# Problem: https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
-
-from typing import List
-from math import floor
 
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        stack = []
-        for ch in tokens:
-            if ch in "+-*/":
-                b = stack.pop()
-                a = stack.pop()
-                if ch == "+":
-                    stack.append(a + b)
-                elif ch == "-":
-                    stack.append(a - b)
-                elif ch == "*":
-                    stack.append(a * b)
-                elif ch == "/":
-                    stack.append(int(a / b))
+    def evalRPN(self, tokens: list) -> int:
+        # Time: O(n)
+        # Space: O(n)
+        s = []
+        for t in tokens:
+            if t in "+-*/":
+                b = s.pop()
+                a = s.pop()
+                if t == "+":
+                    s.append(a + b)
+                elif t == "-":
+                    s.append(a - b)
+                elif t == "*":
+                    s.append(a * b)
+                elif t == "/":
+                    s.append(int(a / b))
             else:
-                stack.append(int(ch))
-        return stack[-1]
-
-if __name__ == "__main__":
-    sol = Solution()
-    assert sol.evalRPN(["1"]) == 1
-    assert sol.evalRPN(["0"]) == 0
-    assert sol.evalRPN(["-1"]) == -1
-    assert sol.evalRPN(["2", "1", "+"]) == 3
-    assert sol.evalRPN(["2", "0", "*", "1", "2", "+", "*"]) == 0
-    assert sol.evalRPN(["2", "3", "-", "1", "2", "-", "*"]) == 1
-    assert sol.evalRPN(["2", "3", "4", "-", "+"]) == 1
-
-# Explanation: the code uses a stack to process each subexpression, and
-# returns the last item left in the stack
-# Time: O(n), n = len(tokens)
-# Space: worst case O(n)
+                s.append(int(t))
+        return s[-1]
 
 

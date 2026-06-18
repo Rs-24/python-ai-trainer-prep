@@ -1,6 +1,6 @@
 
 
-from collections import deque 
+from collections import deque
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -9,23 +9,26 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def levelOrder(self, root: TreeNode) -> list[list]:
-        # Time: O(n)
-        # Space: O(n)
+    def zigzagLevelOrder(self, root: TreeNode) -> list[list]:
         if not root:
             return []
         out = []
         q = deque([root])
+        lr = True
         while q:
-            t = []
+            t = deque()
             for _ in range(len(q)):
                 n = q.popleft()
-                t.append(n.val)
+                if lr:
+                    t.append(n.val)
+                else:
+                    t.appendleft(n.val)
                 if n.left:
                     q.append(n.left)
                 if n.right:
                     q.append(n.right)
-            out.append(t)
+            out.append(list(t))
+            lr = not lr
         return out
 
 

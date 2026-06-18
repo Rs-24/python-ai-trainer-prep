@@ -1,6 +1,6 @@
 
 
-from collections import deque 
+from collections import deque
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -9,13 +9,13 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def levelOrder(self, root: TreeNode) -> list[list]:
+    def levelOrderBottom(self, root: TreeNode) -> list[list]:
         # Time: O(n)
         # Space: O(n)
         if not root:
             return []
-        out = []
         q = deque([root])
+        out = deque()
         while q:
             t = []
             for _ in range(len(q)):
@@ -25,7 +25,7 @@ class Solution:
                     q.append(n.left)
                 if n.right:
                     q.append(n.right)
-            out.append(t)
-        return out
+            out.appendleft(t)
+        return list(out)
 
 
